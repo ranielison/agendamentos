@@ -9,12 +9,13 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  get: 3.17.1
   flutter:
     sdk: flutter
 
+  get: 3.17.1
   cupertino_icons: ^1.0.0
   table_calendar: ^2.3.1
+  syncfusion_flutter_calendar: ^18.3.51
 
 dev_dependencies:
   flutter_test:

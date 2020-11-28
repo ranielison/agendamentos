@@ -2,6 +2,7 @@ import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart' as eventos;
 import 'package:table_calendar/table_calendar.dart';
 
 class AgendaController extends GetxController
@@ -10,6 +11,8 @@ class AgendaController extends GetxController
 
   RxList _selectedEvents = [].obs;
   List get selectedEvents => _selectedEvents.toList();
+
+  List<Meeting> meetings;
 
   Rx<DateTime> _selectedDay = DateTime.now().obs;
   DateTime get selectedDay => _selectedDay.value;
@@ -51,6 +54,24 @@ class AgendaController extends GetxController
     animationController.forward();
   }
 
+  List<Meeting> getDataSource() {
+    meetings = <Meeting>[];
+    final DateTime today = DateTime.now();
+    final DateTime startTime =
+        DateTime(today.year, today.month, today.day, 9, 0, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 2));
+    meetings.add(
+      Meeting(
+        'Conference',
+        DateTime(today.year, today.month, today.day, 9, 0, 0),
+        DateTime(today.year, today.month, today.day, 11, 0, 0),
+        Colors.red,
+        false,
+      ),
+    );
+    return meetings;
+  }
+
   void onDaySelected(
     DateTime day,
     List events,
@@ -77,4 +98,57 @@ class AgendaController extends GetxController
   ) {
     print('CALLBACK: _onCalendarCreated');
   }
+}
+
+class MeetingDataSource extends eventos.CalendarDataSource {
+  /// Creates a meeting data source, which used to set the appointment
+  /// collection to the calendar
+  MeetingDataSource(List<Meeting> source) {
+    appointments = source;
+  }
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments[index].from;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments[index].to;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments[index].eventName;
+  }
+
+  @override
+  Color getColor(int index) {
+    return appointments[index].background;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return appointments[index].isAllDay;
+  }
+}
+
+class Meeting {
+  /// Creates a meeting class with required details.
+  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
+
+  /// Event name which is equivalent to subject property of [Appointment].
+  String eventName;
+
+  /// From which is equivalent to start time property of [Appointment].
+  DateTime from;
+
+  /// To which is equivalent to end time property of [Appointment].
+  DateTime to;
+
+  /// Background which is equivalent to color property of [Appointment].
+  Color background;
+
+  /// IsAllDay which is equivalent to isAllDay property of [Appointment].
+  bool isAllDay;
 }
