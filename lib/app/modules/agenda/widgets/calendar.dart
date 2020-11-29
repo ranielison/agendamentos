@@ -40,7 +40,7 @@ class Calendar extends StatelessWidget {
         dayBuilder: (context, date, _) {
           return Day(
             day: date.day,
-            disponivel: true,
+            disponivel: controller.disponibilidade[date],
           );
         },
         selectedDayBuilder: (context, date, _) {
