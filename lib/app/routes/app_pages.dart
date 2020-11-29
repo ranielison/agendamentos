@@ -1,5 +1,5 @@
-import 'package:agendamentos/app/modules/lista_servicos/views/lista_servicos_view.dart';
-import 'package:agendamentos/app/modules/lista_servicos/bindings/lista_servicos_binding.dart';
+import 'package:agendamentos/app/modules/lista_horarios/bindings/lista_horarios_binding.dart';
+import 'package:agendamentos/app/modules/lista_horarios/views/lista_horarios_view.dart';
 import 'package:agendamentos/app/modules/agenda/views/agenda_view.dart';
 import 'package:agendamentos/app/modules/agenda/bindings/agenda_binding.dart';
 import 'package:agendamentos/app/modules/home/views/home_view.dart';
@@ -22,9 +22,11 @@ class AppPages {
       binding: AgendaBinding(),
     ),
     GetPage(
-      name: Routes.LISTA_SERVICOS,
-      page: () => ListaServicosView(),
-      binding: ListaServicosBinding(),
+      name: Routes.LISTA_HORARIOS,
+      page: () => ListaHorariosView(),
+      binding: ListaHorariosBinding(),
     ),
   ];
 }
+
+class ListaServicosBinding {}

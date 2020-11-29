@@ -1,12 +1,11 @@
 import 'package:agendamentos/app/modules/agenda/widgets/calendar.dart';
-import 'package:agendamentos/app/modules/lista_servicos/views/lista_servicos_view.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AgendaView extends GetView<AgendaController> {
-  DateTime today = DateTime.now();
+  final DateTime today = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -19,38 +18,28 @@ class AgendaView extends GetView<AgendaController> {
         children: [
           Calendar(),
           const SizedBox(height: 10),
-          SfCalendar(
-            view: CalendarView.day,
-            headerHeight: 0,
-            dataSource: MeetingDataSource([
-              Meeting(
-                'Limpeza de pele',
-                DateTime(today.year, today.month, today.day, 9, 0, 0),
-                DateTime(today.year, today.month, today.day, 11, 0, 0),
-                Colors.blue[300],
-                false,
-              ),
-            ]),
-            monthViewSettings: MonthViewSettings(
-              agendaStyle: AgendaStyle(
-                dateTextStyle: TextStyle(
-                  color: Colors.red,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Agendamentos de hoje',
+                  style: TextStyle(
+                    color: Get.theme.primaryColor,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
+                IconButton(
+                  icon: Icon(
+                    Icons.crop_free,
+                    color: Get.theme.primaryColor,
+                  ),
+                  onPressed: () => Get.toNamed(Routes.LISTA_HORARIOS),
+                )
+              ],
             ),
-            timeSlotViewSettings: TimeSlotViewSettings(
-              startHour: 9,
-              endHour: 16,
-              timeInterval: Duration(minutes: 30),
-              nonWorkingDays: <int>[DateTime.friday, DateTime.saturday],
-            ),
-            appointmentTextStyle: TextStyle(
-              fontSize: 20,
-            ),
-            //appointmentTimeTextFormat: 'yyyy',
           )
-
           /*Expanded(
             child: Obx(
               () => ListaServicosView(

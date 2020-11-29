@@ -21,7 +21,13 @@ class SelectedDay extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(4.0),
         padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-        color: Colors.deepOrange[400],
+        decoration: BoxDecoration(
+          color: Colors.grey[50],
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
         width: 100,
         height: 100,
         child: Text(
