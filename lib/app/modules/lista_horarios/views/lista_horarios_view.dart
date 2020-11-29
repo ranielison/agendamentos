@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:agendamentos/app/modules/lista_horarios/controllers/lista_horarios_controller.dart';
 import 'package:agendamentos/app/modules/lista_horarios/widgets/item_horario.dart';
 import 'package:agendamentos/app/utils/constants.dart';
@@ -5,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ListaHorariosView extends GetView<ListaHorariosController> {
-  final DateTime date;
-
-  ListaHorariosView({this.date});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +22,7 @@ class ListaHorariosView extends GetView<ListaHorariosController> {
                 Icon(Icons.calendar_today, color: Constants.grey),
                 SizedBox(width: 5),
                 Text(
-                  '20/12/2020',
+                  '${controller.selectedDay.day}/${controller.selectedDay.month}/${controller.selectedDay.year}',
                   style: TextStyle(
                     color: Constants.grey,
                     fontSize: 16,
@@ -36,11 +33,13 @@ class ListaHorariosView extends GetView<ListaHorariosController> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: controller.horarios.length,
               itemBuilder: (_, index) {
-                //Agendamento ag = agendamentos[index];
+                Horario horario = controller.horarios[index];
 
-                return ItemHorario();
+                return ItemHorario(
+                  horario: horario,
+                );
               },
             ),
           ),

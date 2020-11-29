@@ -1,7 +1,12 @@
+import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ItemHorario extends StatelessWidget {
+  final Horario horario;
+
+  const ItemHorario({Key key, this.horario}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,14 +27,14 @@ class ItemHorario extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '9:00h - 9:30h',
+            '${horario.start.hour}:${horario.start.minute}h - ${horario.start.add(horario.duration).hour}:${horario.start.add(horario.duration).minute}h',
             style: TextStyle(
               color: Constants.grey,
               fontSize: 16,
             ),
           ),
           Text(
-            'Livre',
+            horario.livre ? 'Livre' : 'Ocupado',
             style: TextStyle(
               color: Constants.green,
             ),

@@ -58,6 +58,7 @@ class AgendaController extends GetxController
   ) {
     print('CALLBACK: _onDaySelected');
 
+    _selectedDay.value = day;
     _selectedEvents.clear();
     _selectedEvents.addAll(events);
   }

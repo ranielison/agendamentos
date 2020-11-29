@@ -11,8 +11,7 @@ class AgendaView extends GetView<AgendaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AgendaView'),
-        centerTitle: true,
+        title: Text('Minha agenda'),
       ),
       body: Column(
         children: [
@@ -35,7 +34,12 @@ class AgendaView extends GetView<AgendaController> {
                     Icons.crop_free,
                     color: Get.theme.primaryColor,
                   ),
-                  onPressed: () => Get.toNamed(Routes.LISTA_HORARIOS),
+                  onPressed: () => Get.toNamed(
+                    Routes.LISTA_HORARIOS,
+                    arguments: {
+                      'day': controller.selectedDay,
+                    },
+                  ),
                 )
               ],
             ),
