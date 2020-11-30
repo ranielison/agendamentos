@@ -31,8 +31,8 @@ List<Agendamento> agendamentosMock = [
       dataNascimento: '20/11/1997',
     ),
     concluido: false,
-    duration: Duration(minutes: 3),
-    startDate: DateTime(2020, 11, 28),
+    duration: Duration(hours: 4),
+    startDate: DateTime(2020, 11, 21, 8),
     isRetorno: false,
     servicos: [
       Servico(

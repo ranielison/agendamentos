@@ -16,53 +16,41 @@ class ListaHorariosController extends GetxController {
     intervalo: Duration(minutes: 30),
     expedientes: [
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        pausa: [12, 0],
+        retorno: [14, 0],
+        fim: [18, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        pausa: [12, 0],
+        retorno: [14, 0],
+        fim: [18, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        pausa: [12, 0],
+        retorno: [14, 0],
+        fim: [18, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        pausa: [12, 0],
+        retorno: [14, 0],
+        fim: [18, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        pausa: [12, 0],
+        retorno: [14, 0],
+        fim: [18, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        pausa: DateTime(2020, 1, 1, 12),
-        retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 18),
+        inicio: [8, 0],
+        fim: [12, 0],
       ),
       ExpedienteDay(
-        aberto: true,
-        inicio: DateTime(2020, 1, 1, 8),
-        //pausa: DateTime(2020, 1, 1, 12),
-        //retorno: DateTime(2020, 1, 1, 14),
-        fim: DateTime(2020, 1, 1, 12),
+        aberto: false,
       ),
     ],
   );
@@ -79,13 +67,43 @@ class ListaHorariosController extends GetxController {
   }
 
   _generateList() {
+    int position = _selectedDay.weekday - 1;
     Duration interval = allExpedientes.intervalo;
-    DateTime inicio =
-        allExpedientes.expedientes[_selectedDay.weekday - 1].inicio;
-    DateTime pausa = allExpedientes.expedientes[_selectedDay.weekday - 1].pausa;
-    DateTime retorno =
-        allExpedientes.expedientes[_selectedDay.weekday - 1].retorno;
-    DateTime fim = allExpedientes.expedientes[_selectedDay.weekday - 1].fim;
+
+    if (!allExpedientes.expedientes[position].aberto) return;
+
+    DateTime inicio = _selectedDay.add(
+      Duration(
+        hours: allExpedientes.expedientes[position].inicio[0],
+        minutes: allExpedientes.expedientes[position].inicio[1],
+      ),
+    );
+
+    DateTime fim = _selectedDay.add(
+      Duration(
+        hours: allExpedientes.expedientes[position].fim[0],
+        minutes: allExpedientes.expedientes[position].fim[1],
+      ),
+    );
+
+    DateTime pausa;
+    DateTime retorno;
+
+    if (allExpedientes.expedientes[position].pausa != null) {
+      pausa = _selectedDay.add(
+        Duration(
+          hours: allExpedientes.expedientes[position].pausa[0],
+          minutes: allExpedientes.expedientes[position].pausa[1],
+        ),
+      );
+
+      retorno = _selectedDay.add(
+        Duration(
+          hours: allExpedientes.expedientes[position].retorno[0],
+          minutes: allExpedientes.expedientes[position].retorno[1],
+        ),
+      );
+    }
 
     DateTime atual = inicio;
     int laco = 0;

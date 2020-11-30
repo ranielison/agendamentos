@@ -1,6 +1,7 @@
 import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
+import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,11 +9,14 @@ import 'package:table_calendar/table_calendar.dart';
 class AgendaController extends GetxController
     with SingleGetTickerProviderMixin {
   Map<DateTime, List<dynamic>> events = {};
-  Map<DateTime, bool> disponibilidade = {};
+
+  RxMap<String, bool> _disponibilidade = <String, bool>{}.obs;
+  Map<String, bool> get disponibilidade => _disponibilidade;
 
   ExpedienteDay temp;
   DateTime tempDate;
   DateTime tempPausa;
+  DateTime retorno;
 
   RxList _selectedEvents = [].obs;
   List get selectedEvents => _selectedEvents.toList();
@@ -25,14 +29,6 @@ class AgendaController extends GetxController
 
   List<Agendamento> agendamentos;
 
-  final Map<DateTime, List> holidays = {
-    DateTime(2020, 1, 1): ['New Year\'s Day'],
-    DateTime(2020, 1, 6): ['Epiphany'],
-    DateTime(2020, 2, 14): ['Valentine\'s Day'],
-    DateTime(2020, 4, 21): ['Easter Sunday'],
-    DateTime(2020, 12, 25): ['Easter Monday'],
-  };
-
   @override
   void onInit() {
     super.onInit();
@@ -41,6 +37,7 @@ class AgendaController extends GetxController
 
   void _initListAgendamentos() {
     agendamentos = agendamentosMock;
+
     agendamentos.forEach((ag) {
       if (events.containsKey(ag.startDate)) {
         events[ag.startDate].add(ag);
@@ -53,34 +50,58 @@ class AgendaController extends GetxController
     //que contenha evento fazer os calculos de disponibilidade com base nos horarios disponiveis
 
     ExpedienteDay atual = ExpedienteDay(
-      aberto: true,
-      inicio: DateTime(2020, 1, 1, 8),
-      pausa: DateTime(2020, 1, 1, 12),
-      retorno: DateTime(2020, 1, 1, 14),
-      fim: DateTime(2020, 1, 1, 18),
+      inicio: [8, 0],
+      //pausa: DateTime(2020, 1, 1, 12),
+      //retorno: DateTime(2020, 1, 1, 14),
+      fim: [8, 0],
     );
 
     events.forEach(
       (key, value) {
+        DateTime data = DateTime(key.year, key.month, key.day);
         temp = atual;
-        tempDate = atual.inicio;
-        tempPausa = atual.pausa;
+
+        DateTime inicio = data.add(Duration(
+          hours: temp.inicio[0],
+          minutes: temp.inicio[1],
+        ));
+
+        DateTime fim = data.add(Duration(
+          hours: temp.fim[0],
+          minutes: temp.fim[1],
+        ));
+
+        if (temp.pausa != null) {
+          tempPausa = data.add(Duration(
+            hours: temp.pausa[0],
+            minutes: temp.pausa[1],
+          ));
+
+          retorno = data.add(Duration(
+            hours: temp.retorno[0],
+            minutes: temp.retorno[1],
+          ));
+        }
+
+        tempDate = inicio;
+
         for (Agendamento ag in value) {
           if (tempDate.compareTo(ag.startDate) < 0) {
-            disponibilidade[key] = true;
+            disponibilidade[Constants.dformat.format(data)] = true;
+            refresh();
             break;
           } else {
             tempDate = ag.startDate.add(ag.duration);
             if (tempPausa != null) {
-              if (tempDate.compareTo(temp.inicio) >= 0) {
-                tempDate = temp.retorno;
+              if (tempDate.compareTo(inicio) >= 0) {
+                tempDate = retorno;
                 tempPausa = null;
               }
-
-              if (tempDate.compareTo(temp.fim) >= 0) {
-                disponibilidade[key] = false;
-                break;
-              }
+            }
+            if (tempDate.compareTo(fim) >= 0) {
+              disponibilidade[Constants.dformat.format(data)] = false;
+              refresh();
+              break;
             }
           }
         }

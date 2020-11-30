@@ -32,15 +32,26 @@ class ListaHorariosView extends GetView<ListaHorariosController> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: controller.horarios.length,
-              itemBuilder: (_, index) {
-                Horario horario = controller.horarios[index];
+            child: Visibility(
+              visible: controller.horarios.isNotEmpty,
+              child: ListView.builder(
+                itemCount: controller.horarios.length,
+                itemBuilder: (_, index) {
+                  Horario horario = controller.horarios[index];
 
-                return ItemHorario(
-                  horario: horario,
-                );
-              },
+                  return ItemHorario(
+                    horario: horario,
+                  );
+                },
+              ),
+              replacement: Center(
+                child: Text(
+                  'Fechado',
+                  style: TextStyle(
+                    color: Constants.grey,
+                  ),
+                ),
+              ),
             ),
           ),
         ],

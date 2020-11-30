@@ -3,6 +3,7 @@ import 'package:agendamentos/app/modules/agenda/widgets/day.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/event_marker.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/selected_day.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/today.dart';
+import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -16,7 +17,6 @@ class Calendar extends StatelessWidget {
       locale: 'pt_BR',
       calendarController: controller.calendarController,
       events: controller.events,
-      holidays: controller.holidays,
       initialCalendarFormat: CalendarFormat.month,
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.sunday,
@@ -38,9 +38,18 @@ class Calendar extends StatelessWidget {
       ),
       builders: CalendarBuilders(
         dayBuilder: (context, date, _) {
-          return Day(
-            day: date.day,
-            disponivel: controller.disponibilidade[date],
+          if (date.day == 22) {
+            print('Disponibilidade:');
+            print(controller.disponibilidade[date]);
+          }
+
+          return Obx(
+            () => Day(
+              day: date.day,
+              disponivel:
+                  controller.disponibilidade[Constants.dformat.format(date)] ??
+                      true,
+            ),
           );
         },
         selectedDayBuilder: (context, date, _) {

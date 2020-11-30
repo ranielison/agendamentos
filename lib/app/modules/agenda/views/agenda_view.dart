@@ -37,7 +37,9 @@ class AgendaView extends GetView<AgendaController> {
                   onPressed: () => Get.toNamed(
                     Routes.LISTA_HORARIOS,
                     arguments: {
-                      'day': controller.selectedDay,
+                      'day': controller.selectedDay.subtract(
+                        Duration(hours: 12),
+                      ),
                     },
                   ),
                 )
