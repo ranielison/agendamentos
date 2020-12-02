@@ -40,6 +40,7 @@ class AgendaView extends GetView<AgendaController> {
                       'day': controller.selectedDay.subtract(
                         Duration(hours: 12),
                       ),
+                      'agendamentos': controller.selectedEvents,
                     },
                   ),
                 )
