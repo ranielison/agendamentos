@@ -74,16 +74,22 @@ class ListaHorariosController extends GetxController {
     int position = _selectedDay.weekday - 1;
     Duration interval = allExpedientes.intervalo;
 
+    DateTime today = DateTime(
+      _selectedDay.year,
+      _selectedDay.month,
+      _selectedDay.day,
+    );
+
     if (!allExpedientes.expedientes[position].aberto) return;
 
-    DateTime inicio = _selectedDay.add(
+    DateTime inicio = today.add(
       Duration(
         hours: allExpedientes.expedientes[position].inicio[0],
         minutes: allExpedientes.expedientes[position].inicio[1],
       ),
     );
 
-    DateTime fim = _selectedDay.add(
+    DateTime fim = today.add(
       Duration(
         hours: allExpedientes.expedientes[position].fim[0],
         minutes: allExpedientes.expedientes[position].fim[1],

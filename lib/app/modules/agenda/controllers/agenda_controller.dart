@@ -53,7 +53,7 @@ class AgendaController extends GetxController
       inicio: [8, 0],
       //pausa: DateTime(2020, 1, 1, 12),
       //retorno: DateTime(2020, 1, 1, 14),
-      fim: [8, 0],
+      fim: [12, 0],
     );
 
     events.forEach(
@@ -104,6 +104,11 @@ class AgendaController extends GetxController
               break;
             }
           }
+        }
+
+        if (tempDate.compareTo(fim) < 0) {
+          disponibilidade[Constants.dformat.format(data)] = true;
+          refresh();
         }
       },
     );
