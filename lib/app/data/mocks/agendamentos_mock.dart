@@ -10,8 +10,8 @@ List<Agendamento> agendamentosMock = [
       dataNascimento: '20/12/1997',
     ),
     concluido: false,
-    duration: Duration(hours: 3),
-    startDate: DateTime(2020, 11, 28, 8, 30),
+    duration: Duration(hours: 4),
+    startDate: DateTime(2020, 11, 28, 8, 0),
     isRetorno: false,
     servicos: [
       Servico(
@@ -31,8 +31,42 @@ List<Agendamento> agendamentosMock = [
       dataNascimento: '20/11/1997',
     ),
     concluido: false,
-    duration: Duration(hours: 4),
+    duration: Duration(hours: 2),
     startDate: DateTime(2020, 11, 21, 8),
+    isRetorno: false,
+    servicos: [
+      Servico(
+        description: 'Pigmentação',
+        value: 43.00,
+      ),
+    ],
+  ),
+  Agendamento(
+    cliente: Cliente(
+      nome: 'Ronin Oliveira',
+      telefone: '(84) 998346460',
+      dataNascimento: '20/11/1997',
+    ),
+    concluido: false,
+    duration: Duration(hours: 2),
+    startDate: DateTime(2020, 11, 21, 14),
+    isRetorno: false,
+    servicos: [
+      Servico(
+        description: 'Pigmentação',
+        value: 43.00,
+      ),
+    ],
+  ),
+  Agendamento(
+    cliente: Cliente(
+      nome: 'Ronin Oliveira',
+      telefone: '(84) 998346460',
+      dataNascimento: '20/11/1997',
+    ),
+    concluido: false,
+    duration: Duration(hours: 2),
+    startDate: DateTime(2020, 11, 21, 16),
     isRetorno: false,
     servicos: [
       Servico(

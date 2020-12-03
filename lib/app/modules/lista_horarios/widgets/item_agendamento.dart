@@ -1,10 +1,15 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ItemAgendamento extends StatelessWidget {
   final Agendamento agendamento;
+  final _hourFormat = new DateFormat('hh:mm');
 
-  const ItemAgendamento({Key key, this.agendamento}) : super(key: key);
+  ItemAgendamento({
+    Key key,
+    this.agendamento,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,7 @@ class ItemAgendamento extends StatelessWidget {
                 ),
               ),
               Text(
-                '13:00h - 14:45h',
+                '${_hourFormat.format(agendamento.startDate)}h - ${_hourFormat.format(agendamento.startDate.add(agendamento.duration))}h',
                 style: TextStyle(
                   color: Colors.grey,
                 ),
@@ -40,8 +45,8 @@ class ItemAgendamento extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Icon(
-              Icons.timer,
-              color: Colors.grey,
+              agendamento.concluido ? Icons.check : Icons.timer,
+              color: agendamento.concluido ? Colors.green : Colors.grey,
             ),
           ),
         ],

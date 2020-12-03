@@ -1,4 +1,6 @@
+import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/calendar.dart';
+import 'package:agendamentos/app/modules/agenda/widgets/list_agendamentos.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,14 +48,14 @@ class AgendaView extends GetView<AgendaController> {
                 )
               ],
             ),
-          )
-          /*Expanded(
+          ),
+          Expanded(
             child: Obx(
-              () => ListaServicosView(
-                agendamentos: controller.selectedEvents,
+              () => ListAgendamentos(
+                agendamentos: List<Agendamento>.from(controller.selectedEvents),
               ),
             ),
-          ),*/
+          ),
         ],
       ),
     );

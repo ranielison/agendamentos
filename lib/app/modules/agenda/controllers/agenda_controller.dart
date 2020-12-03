@@ -39,10 +39,16 @@ class AgendaController extends GetxController
     agendamentos = agendamentosMock;
 
     agendamentos.forEach((ag) {
-      if (events.containsKey(ag.startDate)) {
-        events[ag.startDate].add(ag);
+      DateTime agDay = DateTime(
+        ag.startDate.year,
+        ag.startDate.month,
+        ag.startDate.day,
+      );
+
+      if (events.containsKey(agDay)) {
+        events[agDay].add(ag);
       } else {
-        events[ag.startDate] = [ag];
+        events[agDay] = [ag];
       }
     });
 
@@ -58,58 +64,24 @@ class AgendaController extends GetxController
 
     events.forEach(
       (key, value) {
+        bool disponivel = false;
         DateTime data = DateTime(key.year, key.month, key.day);
         temp = atual;
 
-        DateTime inicio = data.add(Duration(
-          hours: temp.inicio[0],
-          minutes: temp.inicio[1],
-        ));
+        Duration expedientDuration = Duration(hours: 8);
+        print(expedientDuration.abs());
 
-        DateTime fim = data.add(Duration(
-          hours: temp.fim[0],
-          minutes: temp.fim[1],
-        ));
+        value.forEach(
+          (ag) {
+            expedientDuration -= ag.duration;
+          },
+        );
 
-        if (temp.pausa != null) {
-          tempPausa = data.add(Duration(
-            hours: temp.pausa[0],
-            minutes: temp.pausa[1],
-          ));
-
-          retorno = data.add(Duration(
-            hours: temp.retorno[0],
-            minutes: temp.retorno[1],
-          ));
+        if (expedientDuration.compareTo(Duration()) > 0) {
+          disponivel = true;
         }
 
-        tempDate = inicio;
-
-        for (Agendamento ag in value) {
-          if (tempDate.compareTo(ag.startDate) < 0) {
-            disponibilidade[Constants.dformat.format(data)] = true;
-            refresh();
-            break;
-          } else {
-            tempDate = ag.startDate.add(ag.duration);
-            if (tempPausa != null) {
-              if (tempDate.compareTo(inicio) >= 0) {
-                tempDate = retorno;
-                tempPausa = null;
-              }
-            }
-            if (tempDate.compareTo(fim) >= 0) {
-              disponibilidade[Constants.dformat.format(data)] = false;
-              refresh();
-              break;
-            }
-          }
-        }
-
-        if (tempDate.compareTo(fim) < 0) {
-          disponibilidade[Constants.dformat.format(data)] = true;
-          refresh();
-        }
+        disponibilidade[Constants.dformat.format(data)] = disponivel;
       },
     );
 
