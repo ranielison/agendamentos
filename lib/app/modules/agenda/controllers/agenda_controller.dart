@@ -13,7 +13,6 @@ class AgendaController extends GetxController
   RxMap<String, bool> _disponibilidade = <String, bool>{}.obs;
   Map<String, bool> get disponibilidade => _disponibilidade;
 
-  ExpedienteDay temp;
   DateTime tempDate;
   DateTime tempPausa;
   DateTime retorno;
@@ -52,24 +51,25 @@ class AgendaController extends GetxController
       }
     });
 
-    //Vou ter que puxar no inicio, a lista de todos os dias de expediente, e pra cada dia
-    //que contenha evento fazer os calculos de disponibilidade com base nos horarios disponiveis
-
-    ExpedienteDay atual = ExpedienteDay(
-      inicio: [8, 0],
-      //pausa: DateTime(2020, 1, 1, 12),
-      //retorno: DateTime(2020, 1, 1, 14),
-      fim: [12, 0],
-    );
-
     events.forEach(
       (key, value) {
         bool disponivel = false;
         DateTime data = DateTime(key.year, key.month, key.day);
-        temp = atual;
+        ExpedienteDay temp = allExpedientes.expedientes[key.weekday - 1];
 
-        Duration expedientDuration = Duration(hours: 8);
-        print(expedientDuration.abs());
+        Duration expedientDuration;
+
+        if (temp.pausa != null) {
+          expedientDuration =
+              Duration(hours: temp.pausa[0], minutes: temp.pausa[1]) -
+                  Duration(hours: temp.inicio[0], minutes: temp.inicio[1]) +
+                  Duration(hours: temp.fim[0], minutes: temp.fim[1]) -
+                  Duration(hours: temp.retorno[0], minutes: temp.retorno[1]);
+        } else {
+          expedientDuration =
+              Duration(hours: temp.fim[0], minutes: temp.fim[1]) -
+                  Duration(hours: temp.inicio[0], minutes: temp.inicio[1]);
+        }
 
         value.forEach(
           (ag) {

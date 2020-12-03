@@ -1,6 +1,5 @@
+import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
-import 'package:agendamentos/app/data/models/expediente.dart';
-import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:get/get.dart';
 
@@ -14,49 +13,6 @@ class ListaHorariosController extends GetxController {
   List<Horario> get horarios => _horarios;
 
   List<Agendamento> _agendamentos;
-
-  final allExpedientes = ExpedienteSettings(
-    intervalo: Duration(minutes: 30),
-    expedientes: [
-      ExpedienteDay(
-        inicio: [8, 0],
-        pausa: [12, 0],
-        retorno: [14, 0],
-        fim: [18, 0],
-      ),
-      ExpedienteDay(
-        inicio: [8, 0],
-        pausa: [12, 0],
-        retorno: [14, 0],
-        fim: [18, 0],
-      ),
-      ExpedienteDay(
-        inicio: [8, 0],
-        pausa: [12, 0],
-        retorno: [14, 0],
-        fim: [18, 0],
-      ),
-      ExpedienteDay(
-        inicio: [8, 0],
-        pausa: [12, 0],
-        retorno: [14, 0],
-        fim: [18, 0],
-      ),
-      ExpedienteDay(
-        inicio: [8, 0],
-        pausa: [12, 0],
-        retorno: [14, 0],
-        fim: [18, 0],
-      ),
-      ExpedienteDay(
-        inicio: [8, 0],
-        fim: [12, 0],
-      ),
-      ExpedienteDay(
-        aberto: false,
-      ),
-    ],
-  );
 
   @override
   onInit() {
