@@ -5,4 +5,5 @@ abstract class Routes {
   static const HOME = '/home';
   static const AGENDA = '/agenda';
   static const LISTA_HORARIOS = '/lista-horarios';
+  static const CRIAR_AGENDAMENTO = '/criar-agendamento';
 }

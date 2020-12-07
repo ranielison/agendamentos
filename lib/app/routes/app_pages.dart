@@ -1,3 +1,5 @@
+import 'package:agendamentos/app/modules/criar_agendamento/views/criar_agendamento_view.dart';
+import 'package:agendamentos/app/modules/criar_agendamento/bindings/criar_agendamento_binding.dart';
 import 'package:agendamentos/app/modules/lista_horarios/bindings/lista_horarios_binding.dart';
 import 'package:agendamentos/app/modules/lista_horarios/views/lista_horarios_view.dart';
 import 'package:agendamentos/app/modules/agenda/views/agenda_view.dart';
@@ -26,7 +28,13 @@ class AppPages {
       page: () => ListaHorariosView(),
       binding: ListaHorariosBinding(),
     ),
+    GetPage(
+      name: Routes.CRIAR_AGENDAMENTO, 
+      page:()=> CriarAgendamentoView(), 
+      binding: CriarAgendamentoBinding(),
+    ),
   ];
 }
 
-class ListaServicosBinding {}
+class ListaServicosBinding {
+}

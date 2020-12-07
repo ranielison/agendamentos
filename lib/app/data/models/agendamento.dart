@@ -14,7 +14,7 @@ class Agendamento {
     this.duration,
     this.startDate,
     this.servicos,
-    this.isRetorno,
+    this.isRetorno = false,
     this.concluido = false,
   });
 }
