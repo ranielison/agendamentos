@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:agendamentos/app/data/models/servico.dart';
 
 class ItemServico extends StatelessWidget {
+  final Servico servico;
+
+  const ItemServico({Key key, this.servico}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +19,7 @@ class ItemServico extends StatelessWidget {
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(),
               child: Text(
-                'Limpeza de pele',
+                servico.description,
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 16,

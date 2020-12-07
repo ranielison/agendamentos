@@ -36,8 +36,9 @@ class CriarAgendamentoController extends GetxController {
     _servicoSelecetd.value = servico;
   }
 
-  addServico(Servico servico) {
-    _servicosSelecionados.add(servico);
+  addServico() {
+    if (_servicoSelecetd.value == null) return;
+    _servicosSelecionados.add(_servicoSelecetd.value);
   }
 
   criarAgendamento() {
