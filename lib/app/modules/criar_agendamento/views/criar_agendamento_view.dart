@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/criar_agendamento/controllers/criar_agendamento_controller.dart';
 
 class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +29,18 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
               ),
             ),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: TextFormField(
                       cursorColor: Constants.primary,
+                      onChanged: controller.setClientField,
+                      validator: (value) {
+                        if (value.isEmpty) return '* Obrigatório';
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: 'Cliente',
                         labelStyle: TextStyle(
@@ -64,6 +72,12 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                     padding: const EdgeInsets.only(top: 10.0),
                     child: TextFormField(
                       cursorColor: Constants.primary,
+                      keyboardType: TextInputType.number,
+                      onChanged: controller.setContatoField,
+                      validator: (value) {
+                        if (value.isEmpty) return '* Obrigatório';
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: 'Contato',
                         labelStyle: TextStyle(
@@ -174,7 +188,11 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
             Spacer(),
             GeralButton(
               textButton: 'Agendar',
-              action: () {},
+              action: () {
+                if (_formKey.currentState.validate()) {
+                  controller.criarAgendamento();
+                }
+              },
             )
           ],
         ),

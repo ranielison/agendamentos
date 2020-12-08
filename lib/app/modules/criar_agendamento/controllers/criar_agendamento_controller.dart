@@ -5,6 +5,11 @@ import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:get/get.dart';
 
 class CriarAgendamentoController extends GetxController {
+  DateTime _dataAgendamento;
+
+  String _clientField = '';
+  String _contatoField = '';
+
   RxList<Servico> _servicos = <Servico>[].obs;
   List<Servico> get servicos => _servicos.toList();
 
@@ -20,12 +25,25 @@ class CriarAgendamentoController extends GetxController {
   @override
   onInit() {
     super.onInit();
+    _getArguments();
     _getServicos();
+  }
+
+  _getArguments() {
+    _dataAgendamento = Get.arguments['date'];
   }
 
   _getServicos() {
     _servicos.assignAll(servicosMock);
     _servicoSelecetd.value = _servicos?.first;
+  }
+
+  setClientField(String value) {
+    _clientField = value;
+  }
+
+  setContatoField(String value) {
+    _contatoField = value;
   }
 
   toogleCheckboxRetorno(bool value) {
@@ -42,15 +60,21 @@ class CriarAgendamentoController extends GetxController {
   }
 
   criarAgendamento() {
+    if (_servicosSelecionados.isEmpty) {
+      //Exibir mensagem avisando para adicionar serviços
+      return;
+    }
     Agendamento agendamento = Agendamento(
       cliente: Cliente(
-        nome: 'Ranielison', // Pegar do campo
-        telefone: '(84) 998306460', //Pegar do campo
+        nome: _clientField,
+        telefone: _contatoField,
       ),
-      concluido: false,
-      isRetorno: false, //add checkbox de retorno
-      duration: Duration(hours: 1), //Somar durações dos serviços selecionados
-      startDate: DateTime.now(), // Colocar data selecionada
+      isRetorno: _isRetorno.value,
+      duration: _servicosSelecionados.fold(
+        Duration(),
+        (previousValue, element) => previousValue + element.duration,
+      ),
+      startDate: _dataAgendamento,
       servicos: servicosSelecionados,
     );
 
