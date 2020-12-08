@@ -17,10 +17,14 @@ dependencies:
   table_calendar: ^2.3.1
   syncfusion_flutter_calendar: ^18.3.51
   intl: ^0.16.1
+  hive: ^1.4.4+1
+  path_provider: ^1.6.24
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.8.2
+  build_runner: ^1.10.4
 
 flutter:
   uses-material-design: true

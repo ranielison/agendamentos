@@ -8,4 +8,7 @@ class Constants {
   static const Color primary = Color(0xFF902195);
 
   static final dformat = DateFormat('yyyy-MM-dd');
+
+  static const hiveAgendamentoAdapter = 0;
+  static const hiveClienteAdapter = 1;
 }
