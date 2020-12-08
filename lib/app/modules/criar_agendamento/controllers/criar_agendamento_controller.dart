@@ -2,9 +2,12 @@ import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/cliente.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
+import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:get/get.dart';
 
 class CriarAgendamentoController extends GetxController {
+  final _localDataHelper = Get.find<LocalDataHelper>();
+
   DateTime _dataAgendamento;
 
   String _clientField = '';
@@ -78,6 +81,6 @@ class CriarAgendamentoController extends GetxController {
       servicos: servicosSelecionados,
     );
 
-    //Adicionar o agendamento no banco
+    _localDataHelper.addAgendamento(agendamento);
   }
 }

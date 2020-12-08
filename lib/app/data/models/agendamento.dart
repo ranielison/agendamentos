@@ -8,21 +8,24 @@ part 'agendamento.g.dart';
 @HiveType(typeId: Constants.hiveAgendamentoAdapter)
 class Agendamento {
   @HiveField(0)
-  Cliente cliente;
+  String idAgendamento;
 
   @HiveField(1)
-  Duration duration;
+  Cliente cliente;
 
   @HiveField(2)
-  DateTime startDate;
+  Duration duration;
 
   @HiveField(3)
-  List<Servico> servicos;
+  DateTime startDate;
 
   @HiveField(4)
-  bool isRetorno;
+  List<Servico> servicos;
 
   @HiveField(5)
+  bool isRetorno;
+
+  @HiveField(6)
   bool concluido;
 
   Agendamento({

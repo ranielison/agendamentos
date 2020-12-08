@@ -11,4 +11,8 @@ class Constants {
 
   static const hiveAgendamentoAdapter = 0;
   static const hiveClienteAdapter = 1;
+  static const hiveExpedienteAdapter = 2;
+  static const hiveExpedienteSettingsAdapter = 3;
+  static const hiveHoraioAdapter = 4;
+  static const hiveServicoAdapter = 5;
 }

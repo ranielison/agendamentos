@@ -5,6 +5,13 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
+import 'app/data/models/agendamento.dart';
+import 'app/data/models/cliente.dart';
+import 'app/data/models/expediente.dart';
+import 'app/data/models/expediente_settings.dart';
+import 'app/data/models/horario.dart';
+import 'app/data/models/servico.dart';
+import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
@@ -12,8 +19,15 @@ void main() async {
 
   final appDocDir = await getApplicationDocumentsDirectory();
 
-  Hive..init(appDocDir.path);
-  //..registerAdapter(adapter)
+  Hive
+    ..init(appDocDir.path)
+    ..registerAdapter(AgendamentoAdapter())
+    ..registerAdapter(ClienteAdapter())
+    ..registerAdapter(ExpedienteSettingsAdapter())
+    ..registerAdapter(ExpedienteDayAdapter())
+    ..registerAdapter(HorarioAdapter())
+    ..registerAdapter(ServicoAdapter());
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -25,6 +39,7 @@ void main() async {
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+        initialBinding: ApplicationBinding(),
         theme: ThemeData(
           primaryColor: Constants.primary,
         ),
