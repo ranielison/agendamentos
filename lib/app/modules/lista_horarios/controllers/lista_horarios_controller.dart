@@ -56,14 +56,14 @@ class ListaHorariosController extends GetxController {
     DateTime retorno;
 
     if (allExpedientes.expedientes[position].pausa != null) {
-      pausa = _selectedDay.add(
+      pausa = today.add(
         Duration(
           hours: allExpedientes.expedientes[position].pausa[0],
           minutes: allExpedientes.expedientes[position].pausa[1],
         ),
       );
 
-      retorno = _selectedDay.add(
+      retorno = today.add(
         Duration(
           hours: allExpedientes.expedientes[position].retorno[0],
           minutes: allExpedientes.expedientes[position].retorno[1],

@@ -22,7 +22,7 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              '06/12/2020 às 9:00h',
+              Constants.dhformat.format(controller.dataAgendamento),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Constants.primary,

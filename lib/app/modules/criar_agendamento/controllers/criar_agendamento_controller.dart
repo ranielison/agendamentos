@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class CriarAgendamentoController extends GetxController {
   final _localDataHelper = Get.find<LocalDataHelper>();
 
-  DateTime _dataAgendamento;
+  DateTime dataAgendamento;
 
   String _clientField = '';
   String _contatoField = '';
@@ -33,7 +33,7 @@ class CriarAgendamentoController extends GetxController {
   }
 
   _getArguments() {
-    _dataAgendamento = Get.arguments['date'];
+    dataAgendamento = Get.arguments['date'];
   }
 
   _getServicos() {
@@ -77,7 +77,7 @@ class CriarAgendamentoController extends GetxController {
         Duration(),
         (previousValue, element) => previousValue + element.duration,
       ),
-      startDate: _dataAgendamento,
+      startDate: dataAgendamento,
       servicos: servicosSelecionados,
     );
 

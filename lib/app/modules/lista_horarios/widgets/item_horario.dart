@@ -12,7 +12,12 @@ class ItemHorario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(Routes.CRIAR_AGENDAMENTO),
+      onTap: () => Get.toNamed(
+        Routes.CRIAR_AGENDAMENTO,
+        arguments: {
+          'date': horario.start,
+        },
+      ),
       child: Container(
         height: 52,
         padding: const EdgeInsets.symmetric(horizontal: 10),
