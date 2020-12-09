@@ -35,13 +35,21 @@ class DialogServicos extends StatelessWidget {
               ),
               trailing: Obx(
                 () => IconButton(
-                  icon: Icon(
-                    _controller.servicosSelecionados.contains(servico)
-                        ? Icons.remove
-                        : Icons.add,
-                  ),
+                  icon: _controller.servicosSelecionados.contains(servico)
+                      ? Icon(
+                          Icons.remove,
+                          color: Colors.grey,
+                        )
+                      : Icon(
+                          Icons.add,
+                          color: Get.theme.primaryColor,
+                        ),
                   onPressed: () {
-                    _controller.addServico(servico);
+                    if (_controller.servicosSelecionados.contains(servico)) {
+                      _controller.removeServico(servico);
+                    } else {
+                      _controller.addServico(servico);
+                    }
                   },
                 ),
               ),

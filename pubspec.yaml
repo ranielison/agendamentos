@@ -19,6 +19,7 @@ dependencies:
   intl: ^0.16.1
   hive: ^1.4.4+1
   path_provider: ^1.6.24
+  mask_text_input_formatter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

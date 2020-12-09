@@ -63,6 +63,10 @@ class CriarAgendamentoController extends GetxController {
     //_servicosSelecionados.add(_servicoSelecetd.value);
   }
 
+  removeServico(Servico servico) {
+    _servicosSelecionados.remove(servico);
+  }
+
   criarAgendamento() {
     if (_servicosSelecionados.isEmpty) {
       //Exibir mensagem avisando para adicionar serviços

@@ -1,53 +1,65 @@
+import 'package:agendamentos/app/modules/criar_agendamento/controllers/criar_agendamento_controller.dart';
+import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
+import 'package:get/get.dart';
 
 class ItemServico extends StatelessWidget {
   final Servico servico;
 
-  const ItemServico({Key key, this.servico}) : super(key: key);
+  ItemServico({Key key, this.servico}) : super(key: key);
+
+  final controller = Get.find<CriarAgendamentoController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 42,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flexible(
-            flex: 4,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(),
-              child: Text(
-                servico.description,
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 15,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(),
+                    child: Text(
+                      servico.description,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.timelapse, color: Colors.grey, size: 20),
+                  SizedBox(width: 3),
+                  Text(
+                    Constants.hformat.format(
+                      DateTime(2020).add(
+                        Duration(minutes: servico.durationInMinutes),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          Flexible(
-            child: Container(
-              height: 50,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.grey,
-                ),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'R\$ 39,00',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+        ),
+        IconButton(
+          icon: Icon(Icons.close, color: Colors.red[400]),
+          onPressed: () => controller.removeServico(servico),
+        )
+      ],
     );
   }
 }
