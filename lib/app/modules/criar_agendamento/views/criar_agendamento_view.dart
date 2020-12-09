@@ -1,5 +1,6 @@
 import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/global/widgets/geral_button.dart';
+import 'package:agendamentos/app/modules/criar_agendamento/widgets/dialog_servicos.dart';
 import 'package:agendamentos/app/modules/criar_agendamento/widgets/item_servico.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,13 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                     .toList(),
               ),
             ),
-            Row(
+            OutlineButton(
+              onPressed: () {
+                Get.dialog(DialogServicos());
+              },
+              child: Text('Adicionar serviço'),
+            ),
+            /*Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
@@ -184,15 +191,17 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                   ),
                 )
               ],
-            ),
-            Spacer(),
-            GeralButton(
-              textButton: 'Agendar',
-              action: () {
-                if (_formKey.currentState.validate()) {
-                  controller.criarAgendamento();
-                }
-              },
+            ),*/
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: GeralButton(
+                textButton: 'Agendar',
+                action: () {
+                  if (_formKey.currentState.validate()) {
+                    controller.criarAgendamento();
+                  }
+                },
+              ),
             )
           ],
         ),
