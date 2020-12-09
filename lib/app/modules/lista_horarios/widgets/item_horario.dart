@@ -36,7 +36,7 @@ class ItemHorario extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${horario.start.hour}:${horario.start.minute}h - ${horario.start.add(horario.duration).hour}:${horario.start.add(horario.duration).minute}h',
+              '${Constants.hformat.format(horario.start)} - ${Constants.hformat.format(horario.start.add(Duration(minutes: horario.durationInMinutes)))}',
               style: TextStyle(
                 color: Constants.grey,
                 fontSize: 16,

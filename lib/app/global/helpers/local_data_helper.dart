@@ -16,8 +16,9 @@ class LocalDataHelper {
     _box.clear();
   }
 
-  List<Agendamento> getAgendmentos() {
-    return _box.get('agendamentos') ?? [];
+  List<Agendamento> getAgendamentos() {
+    var agendamentos = _box.get('agendamentos');
+    return List<Agendamento>.from(agendamentos ?? []);
   }
 
   void addAgendamento(Agendamento agendamento) {

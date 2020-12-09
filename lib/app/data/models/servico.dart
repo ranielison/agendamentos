@@ -15,12 +15,12 @@ class Servico {
   double value;
 
   @HiveField(3)
-  Duration duration;
+  int durationInMinutes;
 
   Servico({
     this.id,
     this.description,
     this.value,
-    this.duration,
+    this.durationInMinutes,
   });
 }

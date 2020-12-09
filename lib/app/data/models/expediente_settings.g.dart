@@ -17,7 +17,7 @@ class ExpedienteSettingsAdapter extends TypeAdapter<ExpedienteSettings> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExpedienteSettings(
-      intervalo: fields[0] as Duration,
+      intervaloInMinutes: fields[0] as int,
       expedientes: (fields[1] as List)?.cast<ExpedienteDay>(),
     );
   }
@@ -27,7 +27,7 @@ class ExpedienteSettingsAdapter extends TypeAdapter<ExpedienteSettings> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.intervalo)
+      ..write(obj.intervaloInMinutes)
       ..writeByte(1)
       ..write(obj.expedientes);
   }

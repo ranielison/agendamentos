@@ -18,7 +18,7 @@ class HorarioAdapter extends TypeAdapter<Horario> {
     };
     return Horario(
       start: fields[0] as DateTime,
-      duration: fields[1] as Duration,
+      durationInMinutes: fields[1] as int,
       agendamento: fields[2] as Agendamento,
       livre: fields[3] as bool,
     );
@@ -31,7 +31,7 @@ class HorarioAdapter extends TypeAdapter<Horario> {
       ..writeByte(0)
       ..write(obj.start)
       ..writeByte(1)
-      ..write(obj.duration)
+      ..write(obj.durationInMinutes)
       ..writeByte(2)
       ..write(obj.agendamento)
       ..writeByte(3)

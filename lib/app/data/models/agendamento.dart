@@ -14,7 +14,7 @@ class Agendamento {
   Cliente cliente;
 
   @HiveField(2)
-  Duration duration;
+  int durationInMinutes;
 
   @HiveField(3)
   DateTime startDate;
@@ -30,7 +30,7 @@ class Agendamento {
 
   Agendamento({
     this.cliente,
-    this.duration,
+    this.durationInMinutes,
     this.startDate,
     this.servicos,
     this.isRetorno = false,

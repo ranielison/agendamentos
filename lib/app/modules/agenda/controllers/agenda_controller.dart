@@ -1,6 +1,7 @@
 import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
+import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,8 @@ import 'package:table_calendar/table_calendar.dart';
 
 class AgendaController extends GetxController
     with SingleGetTickerProviderMixin {
+  final _localDataHelper = Get.find<LocalDataHelper>();
+
   Map<DateTime, List<dynamic>> events = {};
 
   RxMap<String, bool> _disponibilidade = <String, bool>{}.obs;
@@ -35,7 +38,7 @@ class AgendaController extends GetxController
   }
 
   void _initListAgendamentos() {
-    agendamentos = agendamentosMock;
+    agendamentos = _localDataHelper.getAgendamentos();
 
     agendamentos.forEach((ag) {
       DateTime agDay = DateTime(
@@ -71,13 +74,15 @@ class AgendaController extends GetxController
                   Duration(hours: temp.inicio[0], minutes: temp.inicio[1]);
         }
 
+        int expedientDurationInMinutes = expedientDuration.inMinutes;
+
         value.forEach(
           (ag) {
-            expedientDuration -= ag.duration;
+            expedientDurationInMinutes -= ag.durationInMinutes;
           },
         );
 
-        if (expedientDuration.compareTo(Duration()) > 0) {
+        if (expedientDurationInMinutes > 0) {
           disponivel = true;
         }
 

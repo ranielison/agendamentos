@@ -7,13 +7,13 @@ part 'expediente_settings.g.dart';
 @HiveType(typeId: Constants.hiveExpedienteSettingsAdapter)
 class ExpedienteSettings {
   @HiveField(0)
-  Duration intervalo;
+  int intervaloInMinutes;
 
   @HiveField(1)
   List<ExpedienteDay> expedientes;
 
   ExpedienteSettings({
-    this.intervalo,
+    this.intervaloInMinutes,
     this.expedientes,
   });
 }

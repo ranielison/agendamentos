@@ -8,7 +8,8 @@ class Constants {
   static const Color primary = Color(0xFF902195);
 
   static final dformat = DateFormat('yyyy-MM-dd');
-  static final dhformat = DateFormat('yyyy-MM-dd hh:mm');
+  static final dhformat = DateFormat('yyyy-MM-dd HH:mm');
+  static final hformat = DateFormat.Hm();
 
   static const hiveAgendamentoAdapter = 0;
   static const hiveClienteAdapter = 1;

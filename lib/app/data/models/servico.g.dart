@@ -20,7 +20,7 @@ class ServicoAdapter extends TypeAdapter<Servico> {
       id: fields[0] as int,
       description: fields[1] as String,
       value: fields[2] as double,
-      duration: fields[3] as Duration,
+      durationInMinutes: fields[3] as int,
     );
   }
 
@@ -35,7 +35,7 @@ class ServicoAdapter extends TypeAdapter<Servico> {
       ..writeByte(2)
       ..write(obj.value)
       ..writeByte(3)
-      ..write(obj.duration);
+      ..write(obj.durationInMinutes);
   }
 
   @override

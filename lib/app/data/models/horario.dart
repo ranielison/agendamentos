@@ -10,7 +10,7 @@ class Horario {
   DateTime start;
 
   @HiveField(1)
-  Duration duration;
+  int durationInMinutes;
 
   @HiveField(2)
   Agendamento agendamento;
@@ -20,7 +20,7 @@ class Horario {
 
   Horario({
     this.start,
-    this.duration,
+    this.durationInMinutes,
     this.agendamento,
     this.livre,
   });

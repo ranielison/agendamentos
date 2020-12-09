@@ -25,7 +25,7 @@ class HomeView extends GetView<HomeController> {
           ),
           HomeButton(
             title: 'Definições',
-            action: () {},
+            action: () => Get.toNamed(Routes.SETTINGS),
           ),
         ],
       ),

@@ -73,14 +73,15 @@ class CriarAgendamentoController extends GetxController {
         telefone: _contatoField,
       ),
       isRetorno: _isRetorno.value,
-      duration: _servicosSelecionados.fold(
-        Duration(),
-        (previousValue, element) => previousValue + element.duration,
+      durationInMinutes: _servicosSelecionados.fold(
+        0,
+        (previousValue, element) => previousValue + element.durationInMinutes,
       ),
       startDate: dataAgendamento,
       servicos: servicosSelecionados,
     );
 
     _localDataHelper.addAgendamento(agendamento);
+    Get.back();
   }
 }

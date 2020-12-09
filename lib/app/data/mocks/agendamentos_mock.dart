@@ -12,7 +12,7 @@ List<Agendamento> agendamentosMock = [
       dataNascimento: '20/12/1997',
     ),
     concluido: false,
-    duration: Duration(hours: 4),
+    durationInMinutes: 240,
     startDate: DateTime(2020, 11, 28, 8, 0),
     isRetorno: false,
     servicos: [
@@ -33,12 +33,13 @@ List<Agendamento> agendamentosMock = [
       dataNascimento: '20/11/1997',
     ),
     concluido: false,
-    duration: Duration(hours: 2),
+    durationInMinutes: 120,
     startDate: DateTime(2020, 11, 21, 8),
     isRetorno: false,
     servicos: [
       Servico(
         description: 'Pigmentação',
+        durationInMinutes: 30,
         value: 43.00,
       ),
     ],
@@ -46,7 +47,7 @@ List<Agendamento> agendamentosMock = [
 ];
 
 ExpedienteSettings allExpedientes = ExpedienteSettings(
-  intervalo: Duration(minutes: 30),
+  intervaloInMinutes: 30,
   expedientes: [
     ExpedienteDay(
       inicio: [8, 0],
@@ -93,10 +94,12 @@ List<Servico> servicosMock = [
     id: 1,
     description: 'Serviço 1',
     value: 11,
+    durationInMinutes: 30,
   ),
   Servico(
     id: 2,
     description: 'Serviço 2',
     value: 12,
+    durationInMinutes: 30,
   ),
 ];

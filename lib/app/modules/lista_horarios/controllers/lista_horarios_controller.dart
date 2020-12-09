@@ -28,7 +28,7 @@ class ListaHorariosController extends GetxController {
 
   _generateList() {
     int position = _selectedDay.weekday - 1;
-    Duration interval = allExpedientes.intervalo;
+    int interval = allExpedientes.intervaloInMinutes;
 
     DateTime today = DateTime(
       _selectedDay.year,
@@ -79,11 +79,11 @@ class ListaHorariosController extends GetxController {
       _horarios.add(
         Horario(
           start: atual,
-          duration: interval,
+          durationInMinutes: interval,
           livre: true,
         ),
       );
-      atual = atual.add(interval);
+      atual = atual.add(Duration(minutes: interval));
 
       if (pausa != null) {
         if (atual.compareTo(pausa) >= 0) {
@@ -97,24 +97,31 @@ class ListaHorariosController extends GetxController {
       }
     }
 
-    int indHorario = 0;
     if (_agendamentos?.isNotEmpty ?? false) {
       _agendamentos.forEach((element) {
+        int indHorario = 0;
         DateTime inicio = element.startDate;
-        DateTime fim = element.startDate.add(element.duration);
-        //Duration agDuration = element.duration;
+        DateTime fim = element.startDate.add(
+          Duration(
+            minutes: element.durationInMinutes,
+          ),
+        );
 
         for (var i = indHorario; i < _horarios.length; i++) {
           DateTime inicioHorario = _horarios[i].start;
           int diffInicio = inicioHorario.compareTo(inicio);
-          DateTime fimHorario = _horarios[i].start.add(_horarios[i].duration);
+          DateTime fimHorario = _horarios[i].start.add(
+                Duration(
+                  minutes: _horarios[i].durationInMinutes,
+                ),
+              );
           int diffFim = fimHorario.compareTo(fim);
 
           if (diffInicio >= 0 && diffFim <= 0) {
             _horarios[i].livre = false;
           } else {
             indHorario = i;
-            break;
+            //break;
           }
         }
       });

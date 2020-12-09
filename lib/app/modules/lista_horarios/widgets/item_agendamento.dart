@@ -1,12 +1,11 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
+import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ItemAgendamento extends StatelessWidget {
   final Agendamento agendamento;
-  final _hourFormat = new DateFormat('hh:mm');
 
-  ItemAgendamento({
+  const ItemAgendamento({
     Key key,
     this.agendamento,
   }) : super(key: key);
@@ -34,7 +33,7 @@ class ItemAgendamento extends StatelessWidget {
                 ),
               ),
               Text(
-                '${_hourFormat.format(agendamento.startDate)}h - ${_hourFormat.format(agendamento.startDate.add(agendamento.duration))}h',
+                '${Constants.hformat.format(agendamento.startDate)} - ${Constants.hformat.format(agendamento.startDate.add(Duration(minutes: agendamento.durationInMinutes)))}',
                 style: TextStyle(
                   color: Colors.grey,
                 ),

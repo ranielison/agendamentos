@@ -18,7 +18,7 @@ class AgendamentoAdapter extends TypeAdapter<Agendamento> {
     };
     return Agendamento(
       cliente: fields[1] as Cliente,
-      duration: fields[2] as Duration,
+      durationInMinutes: fields[2] as int,
       startDate: fields[3] as DateTime,
       servicos: (fields[4] as List)?.cast<Servico>(),
       isRetorno: fields[5] as bool,
@@ -35,7 +35,7 @@ class AgendamentoAdapter extends TypeAdapter<Agendamento> {
       ..writeByte(1)
       ..write(obj.cliente)
       ..writeByte(2)
-      ..write(obj.duration)
+      ..write(obj.durationInMinutes)
       ..writeByte(3)
       ..write(obj.startDate)
       ..writeByte(4)
