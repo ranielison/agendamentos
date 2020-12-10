@@ -98,33 +98,39 @@ class ListaHorariosController extends GetxController {
     }
 
     if (_agendamentos?.isNotEmpty ?? false) {
-      _agendamentos.forEach((element) {
-        int indHorario = 0;
-        DateTime inicio = element.startDate;
-        DateTime fim = element.startDate.add(
-          Duration(
-            minutes: element.durationInMinutes,
-          ),
-        );
+      _agendamentos.forEach(
+        (element) {
+          int indHorario = 0;
+          bool agendamentoAtribuido = false;
+          DateTime inicio = element.startDate;
+          DateTime fim = element.startDate.add(
+            Duration(
+              minutes: element.durationInMinutes,
+            ),
+          );
 
-        for (var i = indHorario; i < _horarios.length; i++) {
-          DateTime inicioHorario = _horarios[i].start;
-          int diffInicio = inicioHorario.compareTo(inicio);
-          DateTime fimHorario = _horarios[i].start.add(
-                Duration(
-                  minutes: _horarios[i].durationInMinutes,
-                ),
-              );
-          int diffFim = fimHorario.compareTo(fim);
+          for (var i = indHorario; i < _horarios.length; i++) {
+            DateTime inicioHorario = _horarios[i].start;
+            int diffInicio = inicioHorario.compareTo(inicio);
+            DateTime fimHorario = _horarios[i].start.add(
+                  Duration(
+                    minutes: _horarios[i].durationInMinutes,
+                  ),
+                );
+            int diffFim = fimHorario.compareTo(fim);
 
-          if (diffInicio >= 0 && diffFim <= 0) {
-            _horarios[i].livre = false;
-          } else {
-            indHorario = i;
-            //break;
+            if (diffInicio >= 0 && diffFim <= 0) {
+              _horarios[i].livre = false;
+              if (!agendamentoAtribuido) {
+                _horarios[i].agendamento = element;
+                agendamentoAtribuido = true;
+              }
+            } else {
+              indHorario = i;
+            }
           }
-        }
-      });
+        },
+      );
     }
   }
 }

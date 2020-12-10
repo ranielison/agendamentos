@@ -7,4 +7,5 @@ abstract class Routes {
   static const LISTA_HORARIOS = '/lista-horarios';
   static const CRIAR_AGENDAMENTO = '/criar-agendamento';
   static const SETTINGS = '/settings';
+  static const DETAILS = '/details';
 }

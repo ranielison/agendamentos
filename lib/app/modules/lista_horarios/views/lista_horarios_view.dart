@@ -1,6 +1,7 @@
 import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:agendamentos/app/modules/lista_horarios/controllers/lista_horarios_controller.dart';
 import 'package:agendamentos/app/modules/lista_horarios/widgets/item_horario.dart';
+import 'package:agendamentos/app/modules/lista_horarios/widgets/item_horario_ocupado.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,9 +40,17 @@ class ListaHorariosView extends GetView<ListaHorariosController> {
                 itemBuilder: (_, index) {
                   Horario horario = controller.horarios[index];
 
-                  return ItemHorario(
-                    horario: horario,
-                  );
+                  if (!horario.livre && horario.agendamento != null) {
+                    return ItemHorarioOcupado(
+                      agendamento: horario.agendamento,
+                    );
+                  } else if (horario.livre) {
+                    return ItemHorario(
+                      horario: horario,
+                    );
+                  } else {
+                    return SizedBox();
+                  }
                 },
               ),
               replacement: Center(
