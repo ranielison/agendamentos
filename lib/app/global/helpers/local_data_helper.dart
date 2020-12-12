@@ -1,4 +1,5 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
+import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataHelper {
@@ -48,5 +49,17 @@ class LocalDataHelper {
     } on Exception catch (e) {
       print(e);
     }
+  }
+
+  void saveExpedienteSettings(ExpedienteSettings settings) {
+    try {
+      _box.put('expediente_settings', settings);
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  ExpedienteSettings loadExpedienteSettings() {
+    return _box.get('expediente_settings');
   }
 }

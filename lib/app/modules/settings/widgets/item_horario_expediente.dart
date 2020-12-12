@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:interval_time_picker/interval_time_picker.dart';
 
 class ItemHorarioExpediente extends StatelessWidget {
   final void Function(TimeOfDay) onSelect;
   final TimeOfDay horario;
+  final Color colorItem;
+  final int interval;
 
   const ItemHorarioExpediente({
     Key key,
-    this.onSelect,
-    this.horario,
+    @required this.onSelect,
+    @required this.horario,
+    @required this.colorItem,
+    @required this.interval,
   }) : super(key: key);
 
   void _timePicker(BuildContext context) async {
-    TimeOfDay horarioSelecionado = await showTimePicker(
+    TimeOfDay horarioSelecionado = await showIntervalTimePicker(
       context: context,
       initialTime: TimeOfDay(hour: 0, minute: 0),
+      interval: interval,
+      visibleStep:
+          interval == 15 ? VisibleStep.Fifteenths : VisibleStep.Thirtieths,
     );
+
     onSelect(horarioSelecionado);
   }
 
@@ -27,7 +35,7 @@ class ItemHorarioExpediente extends StatelessWidget {
         child: Text(
           horario.format(context),
           style: TextStyle(
-            color: Get.theme.primaryColor,
+            color: colorItem,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
