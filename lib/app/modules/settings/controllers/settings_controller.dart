@@ -23,6 +23,8 @@ class SettingsController extends GetxController {
   setNeedSave(bool value) => _needSave.value = value;
 
   RxInt intervalSelected = 15.obs;
+  RxList<bool> _activeDays = <bool>[].obs;
+  List<bool> get activeDays => _activeDays.toList();
 
   RxList<TimeOfDay> inicioHorarios = <TimeOfDay>[
     TimeOfDay(hour: 8, minute: 0),
@@ -94,10 +96,19 @@ class SettingsController extends GetxController {
           hour: settings.expedientes[i].retorno[0],
           minute: settings.expedientes[i].retorno[1],
         );
+
+        _activeDays.insert(0, settings.expedientes[i].aberto ?? true);
       }
       intervalSelected.value = settings.intervaloInMinutes;
       refresh();
     }
+  }
+
+  void toggleActiveDay(index) {
+    print('index: $index');
+    _activeDays[index] = !_activeDays[index];
+
+    refresh();
   }
 
   void setHorarioInicio(index, horario) {

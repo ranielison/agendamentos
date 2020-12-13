@@ -26,6 +26,8 @@ class SettingsView extends GetView<SettingsController> {
       ),
       body: Column(
         children: [
+          HorarioComercial(),
+          Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
@@ -59,7 +61,6 @@ class SettingsView extends GetView<SettingsController> {
               ],
             ),
           ),
-          HorarioComercial(),
         ],
       ),
     );

@@ -5,26 +5,27 @@ class ItemHorarioExpediente extends StatelessWidget {
   final void Function(TimeOfDay) onSelect;
   final TimeOfDay horario;
   final Color colorItem;
-  final int interval;
+  //final int interval;
 
   const ItemHorarioExpediente({
     Key key,
     @required this.onSelect,
     @required this.horario,
     @required this.colorItem,
-    @required this.interval,
+    //@required this.interval,
   }) : super(key: key);
 
   void _timePicker(BuildContext context) async {
     TimeOfDay horarioSelecionado = await showIntervalTimePicker(
       context: context,
       initialTime: TimeOfDay(hour: 0, minute: 0),
-      interval: interval,
-      visibleStep:
-          interval == 15 ? VisibleStep.Fifteenths : VisibleStep.Thirtieths,
+      //interval: interval,
+      //visibleStep: interval == 15 ? VisibleStep.Fifteenths : VisibleStep.Thirtieths,
     );
 
-    onSelect(horarioSelecionado);
+    if (horarioSelecionado != null) {
+      onSelect(horarioSelecionado);
+    }
   }
 
   @override

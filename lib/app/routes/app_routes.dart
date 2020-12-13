@@ -8,4 +8,5 @@ abstract class Routes {
   static const CRIAR_AGENDAMENTO = '/criar-agendamento';
   static const SETTINGS = '/settings';
   static const DETAILS = '/details';
+  static const CADASTRAR_SERVICO = '/cadastrar-servico';
 }

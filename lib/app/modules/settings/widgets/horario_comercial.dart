@@ -49,21 +49,27 @@ class HorarioComercial extends StatelessWidget {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: weekDays
-                        .map(
-                          (day) => Padding(
+                    children: mapIndexed(
+                      weekDays,
+                      (index, item) => InkWell(
+                        onTap: () => controller.toggleActiveDay(index),
+                        child: Obx(
+                          () => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: Text(
-                              day,
+                              item,
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: controller.activeDays[index]
+                                    ? Get.theme.primaryColor
+                                    : Colors.grey,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        )
-                        .toList(),
+                        ),
+                      ),
+                    ).toList(),
                   )
                 ],
               ),
@@ -79,41 +85,47 @@ class HorarioComercial extends StatelessWidget {
                   Column(
                     children: mapIndexed(
                       controller.inicioHorarios,
-                      (index, item) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Obx(
-                              () => ItemHorarioExpediente(
-                                horario: controller.inicioHorarios[index],
-                                interval: controller.intervalSelected.value,
-                                colorItem: Get.theme.primaryColor,
-                                onSelect: (horario) {
-                                  print(horario.format(context));
-                                  controller.setHorarioInicio(
-                                    index,
-                                    horario,
-                                  );
-                                },
-                              ),
+                      (index, item) => Obx(
+                        () => Visibility(
+                          visible: controller.activeDays[index],
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Obx(
+                                  () => ItemHorarioExpediente(
+                                    horario: controller.inicioHorarios[index],
+                                    //interval: controller.intervalSelected.value,
+                                    colorItem: Get.theme.primaryColor,
+                                    onSelect: (horario) {
+                                      print(horario.format(context));
+                                      controller.setHorarioInicio(
+                                        index,
+                                        horario,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Text(' - ',
+                                    style: TextStyle(color: Colors.grey)),
+                                Obx(
+                                  () => ItemHorarioExpediente(
+                                    horario: controller.fimHorarios[index],
+                                    //interval: controller.intervalSelected.value,
+                                    colorItem: Get.theme.primaryColor,
+                                    onSelect: (horario) {
+                                      print(horario.format(context));
+                                      controller.setHorarioFim(
+                                        index,
+                                        horario,
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
                             ),
-                            Text(' - ', style: TextStyle(color: Colors.grey)),
-                            Obx(
-                              () => ItemHorarioExpediente(
-                                horario: controller.fimHorarios[index],
-                                interval: controller.intervalSelected.value,
-                                colorItem: Get.theme.primaryColor,
-                                onSelect: (horario) {
-                                  print(horario.format(context));
-                                  controller.setHorarioFim(
-                                    index,
-                                    horario,
-                                  );
-                                },
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     ).toList(),
@@ -140,7 +152,7 @@ class HorarioComercial extends StatelessWidget {
                             Obx(
                               () => ItemHorarioExpediente(
                                 horario: controller.pausaHorarios[index],
-                                interval: controller.intervalSelected.value,
+                                //interval: controller.intervalSelected.value,
                                 colorItem: Colors.grey,
                                 onSelect: (horario) {
                                   print(horario.format(context));
@@ -155,7 +167,7 @@ class HorarioComercial extends StatelessWidget {
                             Obx(
                               () => ItemHorarioExpediente(
                                 horario: controller.retornoHorarios[index],
-                                interval: controller.intervalSelected.value,
+                                //interval: controller.intervalSelected.value,
                                 colorItem: Colors.grey,
                                 onSelect: (horario) {
                                   print(horario.format(context));

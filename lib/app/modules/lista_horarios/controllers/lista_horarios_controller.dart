@@ -1,10 +1,11 @@
-import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
+import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/data/models/horario.dart';
+import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:get/get.dart';
 
 class ListaHorariosController extends GetxController {
-  //Puxar definições de horário
+  final _localDataHelper = Get.find<LocalDataHelper>();
 
   DateTime _selectedDay;
   DateTime get selectedDay => _selectedDay;
@@ -21,14 +22,20 @@ class ListaHorariosController extends GetxController {
     _generateList();
   }
 
-  _getArguments() {
+  void _getArguments() {
     _selectedDay = Get.arguments['day'];
     _agendamentos = List<Agendamento>.from(Get.arguments['agendamentos']);
   }
 
-  _generateList() {
-    int position = _selectedDay.weekday - 1;
-    int interval = allExpedientes.intervaloInMinutes;
+  void _generateList() {
+    ExpedienteSettings allExpedientes;
+    int position;
+    int interval;
+
+    allExpedientes = _localDataHelper.loadExpedienteSettings();
+
+    position = _selectedDay.weekday - 1;
+    interval = allExpedientes.intervaloInMinutes;
 
     DateTime today = DateTime(
       _selectedDay.year,

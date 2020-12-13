@@ -32,42 +32,40 @@ class CriarAgendamentoController extends GetxController {
     _getServicos();
   }
 
-  _getArguments() {
+  void _getArguments() {
     dataAgendamento = Get.arguments['date'];
   }
 
-  _getServicos() {
+  void _getServicos() {
     _servicos.assignAll(servicosMock);
     _servicoSelecetd.value = _servicos?.first;
   }
 
-  setClientField(String value) {
+  void setClientField(String value) {
     _clientField = value;
   }
 
-  setContatoField(String value) {
+  void setContatoField(String value) {
     _contatoField = value;
   }
 
-  toogleCheckboxRetorno(bool value) {
+  void toogleCheckboxRetorno(bool value) {
     _isRetorno.value = value;
   }
 
-  setServiceSelected(Servico servico) {
+  void setServiceSelected(Servico servico) {
     _servicoSelecetd.value = servico;
   }
 
-  addServico(Servico servico) {
+  void addServico(Servico servico) {
     _servicosSelecionados.add(servico);
-    //if (_servicoSelecetd.value == null) return;
-    //_servicosSelecionados.add(_servicoSelecetd.value);
   }
 
-  removeServico(Servico servico) {
+  void removeServico(Servico servico) {
     _servicosSelecionados.remove(servico);
   }
 
-  criarAgendamento() {
+  void criarAgendamento() {
     if (_servicosSelecionados.isEmpty) {
       //Exibir mensagem avisando para adicionar serviços
       return;
