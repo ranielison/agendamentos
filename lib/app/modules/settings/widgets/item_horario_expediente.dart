@@ -5,6 +5,7 @@ class ItemHorarioExpediente extends StatelessWidget {
   final void Function(TimeOfDay) onSelect;
   final TimeOfDay horario;
   final Color colorItem;
+  final bool active;
   //final int interval;
 
   const ItemHorarioExpediente({
@@ -12,6 +13,7 @@ class ItemHorarioExpediente extends StatelessWidget {
     @required this.onSelect,
     @required this.horario,
     @required this.colorItem,
+    this.active,
     //@required this.interval,
   }) : super(key: key);
 
@@ -33,12 +35,23 @@ class ItemHorarioExpediente extends StatelessWidget {
     return InkWell(
       onTap: () => _timePicker(context),
       child: Container(
-        child: Text(
-          horario.format(context),
-          style: TextStyle(
-            color: colorItem,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+        constraints: BoxConstraints(
+          minHeight: 20,
+        ),
+        alignment: Alignment.center,
+        child: Visibility(
+          visible: active ?? true,
+          child: Text(
+            horario.format(context),
+            style: TextStyle(
+              color: colorItem,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          replacement: Text(
+            '-',
+            style: TextStyle(color: Colors.grey),
           ),
         ),
       ),

@@ -23,7 +23,7 @@ class SettingsController extends GetxController {
   setNeedSave(bool value) => _needSave.value = value;
 
   RxInt intervalSelected = 15.obs;
-  RxList<bool> _activeDays = <bool>[].obs;
+  RxList<bool> _activeDays = List.generate(7, (index) => true).obs;
   List<bool> get activeDays => _activeDays.toList();
 
   RxList<TimeOfDay> inicioHorarios = <TimeOfDay>[
@@ -76,6 +76,7 @@ class SettingsController extends GetxController {
     ExpedienteSettings settings = _localDataHelper.loadExpedienteSettings();
 
     if (settings != null) {
+      _activeDays.clear();
       for (int i = 0; i < 7; i++) {
         inicioHorarios[i] = TimeOfDay(
           hour: settings.expedientes[i].inicio[0],
@@ -97,7 +98,7 @@ class SettingsController extends GetxController {
           minute: settings.expedientes[i].retorno[1],
         );
 
-        _activeDays.insert(0, settings.expedientes[i].aberto ?? true);
+        _activeDays.add(settings.expedientes[i].aberto ?? true);
       }
       intervalSelected.value = settings.intervaloInMinutes;
       refresh();
@@ -107,8 +108,7 @@ class SettingsController extends GetxController {
   void toggleActiveDay(index) {
     print('index: $index');
     _activeDays[index] = !_activeDays[index];
-
-    refresh();
+    _needSave.value = true;
   }
 
   void setHorarioInicio(index, horario) {
@@ -144,6 +144,7 @@ class SettingsController extends GetxController {
           fim: [fimHorarios[i].hour, fimHorarios[i].minute],
           pausa: [pausaHorarios[i].hour, pausaHorarios[i].minute],
           retorno: [retornoHorarios[i].hour, retornoHorarios[i].minute],
+          aberto: _activeDays[i],
         ),
       );
     }
