@@ -3,6 +3,7 @@ import 'package:agendamentos/app/modules/lista_horarios/controllers/lista_horari
 import 'package:agendamentos/app/modules/lista_horarios/widgets/item_horario.dart';
 import 'package:agendamentos/app/modules/lista_horarios/widgets/item_horario_ocupado.dart';
 import 'package:agendamentos/app/utils/constants.dart';
+import 'package:agendamentos/app/utils/no_animation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,23 +36,25 @@ class ListaHorariosView extends GetView<ListaHorariosController> {
           Expanded(
             child: Visibility(
               visible: controller.horarios.isNotEmpty,
-              child: ListView.builder(
-                itemCount: controller.horarios.length,
-                itemBuilder: (_, index) {
-                  Horario horario = controller.horarios[index];
+              child: NoAnimationList(
+                child: ListView.builder(
+                  itemCount: controller.horarios.length,
+                  itemBuilder: (_, index) {
+                    Horario horario = controller.horarios[index];
 
-                  if (!horario.livre && horario.agendamento != null) {
-                    return ItemHorarioOcupado(
-                      agendamento: horario.agendamento,
-                    );
-                  } else if (horario.livre) {
-                    return ItemHorario(
-                      horario: horario,
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                },
+                    if (!horario.livre && horario.agendamento != null) {
+                      return ItemHorarioOcupado(
+                        agendamento: horario.agendamento,
+                      );
+                    } else if (horario.livre) {
+                      return ItemHorario(
+                        horario: horario,
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                ),
               ),
               replacement: Center(
                 child: Text(

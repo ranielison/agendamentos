@@ -102,4 +102,16 @@ List<Servico> servicosMock = [
     value: 12,
     durationInMinutes: 30,
   ),
+  Servico(
+    id: 2,
+    description: 'Serviço 3',
+    value: 12,
+    durationInMinutes: 30,
+  ),
+  Servico(
+    id: 2,
+    description: 'Serviço 4',
+    value: 12,
+    durationInMinutes: 30,
+  ),
 ];
