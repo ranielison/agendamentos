@@ -35,8 +35,7 @@ class AgendaController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    _initData();
-    _initListAgendamentos();
+    initListAgendamentos();
   }
 
   _initData() {
@@ -44,7 +43,9 @@ class AgendaController extends GetxController
     allExpedientes = _localDataHelper.loadExpedienteSettings();
   }
 
-  void _initListAgendamentos() {
+  void initListAgendamentos() {
+    _initData();
+
     agendamentos.forEach((ag) {
       DateTime agDay = DateTime(
         ag.startDate.year,
