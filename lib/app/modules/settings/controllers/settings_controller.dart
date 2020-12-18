@@ -23,8 +23,12 @@ class SettingsController extends GetxController {
   setNeedSave(bool value) => _needSave.value = value;
 
   RxInt intervalSelected = 15.obs;
+
   RxList<bool> _activeDays = List.generate(7, (index) => true).obs;
   List<bool> get activeDays => _activeDays.toList();
+
+  RxList<bool> _halfDays = List.generate(7, (index) => true).obs;
+  List<bool> get halfDays => _halfDays.toList();
 
   RxList<TimeOfDay> inicioHorarios = <TimeOfDay>[
     TimeOfDay(hour: 8, minute: 0),
@@ -77,6 +81,7 @@ class SettingsController extends GetxController {
 
     if (settings != null) {
       _activeDays.clear();
+      _halfDays.clear();
       for (int i = 0; i < 7; i++) {
         inicioHorarios[i] = TimeOfDay(
           hour: settings.expedientes[i].inicio[0],
@@ -99,6 +104,7 @@ class SettingsController extends GetxController {
         );
 
         _activeDays.add(settings.expedientes[i].aberto ?? true);
+        _halfDays.add(settings.expedientes[i].pausa[0] == -1);
       }
       intervalSelected.value = settings.intervaloInMinutes;
       refresh();
@@ -106,8 +112,23 @@ class SettingsController extends GetxController {
   }
 
   void toggleActiveDay(index) {
-    print('index: $index');
-    _activeDays[index] = !_activeDays[index];
+    if (_halfDays[index] && !_activeDays[index]) {
+      _activeDays[index] = true;
+      _halfDays[index] = false;
+      pausaHorarios[index] = TimeOfDay(
+        hour: 12,
+        minute: 0,
+      );
+
+      retornoHorarios[index] = TimeOfDay(
+        hour: 14,
+        minute: 0,
+      );
+    } else if (!_halfDays[index]) {
+      _halfDays[index] = true;
+    } else if (_activeDays[index]) {
+      _activeDays[index] = false;
+    }
     _needSave.value = true;
   }
 
@@ -142,8 +163,12 @@ class SettingsController extends GetxController {
         ExpedienteDay(
           inicio: [inicioHorarios[i].hour, inicioHorarios[i].minute],
           fim: [fimHorarios[i].hour, fimHorarios[i].minute],
-          pausa: [pausaHorarios[i].hour, pausaHorarios[i].minute],
-          retorno: [retornoHorarios[i].hour, retornoHorarios[i].minute],
+          pausa: _halfDays[i]
+              ? [-1, -1]
+              : [pausaHorarios[i].hour, pausaHorarios[i].minute],
+          retorno: _halfDays[i]
+              ? [-1, -1]
+              : [retornoHorarios[i].hour, retornoHorarios[i].minute],
           aberto: _activeDays[i],
         ),
       );

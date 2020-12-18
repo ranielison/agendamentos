@@ -1,6 +1,6 @@
-import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
+import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +39,8 @@ class AgendaController extends GetxController
 
   void _initListAgendamentos() {
     agendamentos = _localDataHelper.getAgendamentos();
+    ExpedienteSettings allExpedientes =
+        _localDataHelper.loadExpedienteSettings();
 
     agendamentos.forEach((ag) {
       DateTime agDay = DateTime(
@@ -62,7 +64,7 @@ class AgendaController extends GetxController
 
         Duration expedientDuration;
 
-        if (temp.pausa != null) {
+        if (temp.pausa[0] != -1) {
           expedientDuration =
               Duration(hours: temp.pausa[0], minutes: temp.pausa[1]) -
                   Duration(hours: temp.inicio[0], minutes: temp.inicio[1]) +

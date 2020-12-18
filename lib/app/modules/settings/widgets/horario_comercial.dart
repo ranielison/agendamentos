@@ -144,9 +144,12 @@ class HorarioComercial extends StatelessWidget {
                         children: [
                           Obx(
                             () => ItemHorarioExpediente(
-                              horario: controller.pausaHorarios[index],
+                              horario: !controller.halfDays[index]
+                                  ? controller.pausaHorarios[index]
+                                  : TimeOfDay(hour: 0, minute: 0),
                               //interval: controller.intervalSelected.value,
-                              active: controller.activeDays[index],
+                              active: controller.activeDays[index] &&
+                                  !controller.halfDays[index],
                               colorItem: Colors.grey,
                               onSelect: (horario) {
                                 print(horario.format(context));
@@ -160,9 +163,12 @@ class HorarioComercial extends StatelessWidget {
                           Text(' - ', style: TextStyle(color: Colors.grey)),
                           Obx(
                             () => ItemHorarioExpediente(
-                              horario: controller.retornoHorarios[index],
+                              horario: !controller.halfDays[index]
+                                  ? controller.retornoHorarios[index]
+                                  : TimeOfDay(hour: 0, minute: 0),
                               //interval: controller.intervalSelected.value,
-                              active: controller.activeDays[index],
+                              active: controller.activeDays[index] &&
+                                  !controller.halfDays[index],
                               colorItem: Colors.grey,
                               onSelect: (horario) {
                                 print(horario.format(context));
@@ -172,13 +178,13 @@ class HorarioComercial extends StatelessWidget {
                                 );
                               },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ).toList(),
                 ],
-              )
+              ),
             ],
           ),
         ],

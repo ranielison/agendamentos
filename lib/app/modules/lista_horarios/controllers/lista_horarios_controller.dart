@@ -62,7 +62,7 @@ class ListaHorariosController extends GetxController {
     DateTime pausa;
     DateTime retorno;
 
-    if (allExpedientes.expedientes[position].pausa != null) {
+    if (allExpedientes.expedientes[position].pausa[0] != -1) {
       pausa = today.add(
         Duration(
           hours: allExpedientes.expedientes[position].pausa[0],
