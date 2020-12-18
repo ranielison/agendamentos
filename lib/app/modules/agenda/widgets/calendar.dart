@@ -46,6 +46,7 @@ class Calendar extends StatelessWidget {
           return Obx(
             () => Day(
               day: date.day,
+              aberto: controller.dayIsOpen(date),
               disponivel:
                   controller.disponibilidade[Constants.dformat.format(date)] ??
                       true,
@@ -56,11 +57,20 @@ class Calendar extends StatelessWidget {
           return SelectedDay(
             animationController: controller.animationController,
             day: date.day,
-            disponivel: true,
+            aberto: controller.dayIsOpen(date),
+            disponivel:
+                controller.disponibilidade[Constants.dformat.format(date)] ??
+                    true,
           );
         },
         todayDayBuilder: (context, date, _) {
-          return Today(day: date.day);
+          return Today(
+            day: date.day,
+            aberto: controller.dayIsOpen(date),
+            disponivel:
+                controller.disponibilidade[Constants.dformat.format(date)] ??
+                    true,
+          );
         },
         markersBuilder: (context, date, events, holidays) {
           final children = <Widget>[];
@@ -74,7 +84,7 @@ class Calendar extends StatelessWidget {
                   calendarController: controller.calendarController,
                   date: date,
                   amount: controller.events[date].length,
-                  visible: true,
+                  visible: false, //TODO: permitir que o usuário escolha
                 ),
               ),
             );

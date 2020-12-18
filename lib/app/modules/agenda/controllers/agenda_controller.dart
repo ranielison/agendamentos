@@ -30,18 +30,21 @@ class AgendaController extends GetxController
   CalendarController calendarController;
 
   List<Agendamento> agendamentos;
+  ExpedienteSettings allExpedientes;
 
   @override
   void onInit() {
     super.onInit();
+    _initData();
     _initListAgendamentos();
   }
 
-  void _initListAgendamentos() {
+  _initData() {
     agendamentos = _localDataHelper.getAgendamentos();
-    ExpedienteSettings allExpedientes =
-        _localDataHelper.loadExpedienteSettings();
+    allExpedientes = _localDataHelper.loadExpedienteSettings();
+  }
 
+  void _initListAgendamentos() {
     agendamentos.forEach((ag) {
       DateTime agDay = DateTime(
         ag.startDate.year,
@@ -102,6 +105,11 @@ class AgendaController extends GetxController
     );
 
     animationController.forward();
+  }
+
+  bool dayIsOpen(DateTime day) {
+    int weekDay = day.weekday;
+    return allExpedientes.expedientes[weekDay - 1].aberto;
   }
 
   void onDaySelected(
