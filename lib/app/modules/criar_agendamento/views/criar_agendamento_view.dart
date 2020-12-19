@@ -3,6 +3,7 @@ import 'package:agendamentos/app/modules/criar_agendamento/widgets/dialog_servic
 import 'package:agendamentos/app/modules/criar_agendamento/widgets/item_servico.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/criar_agendamento/controllers/criar_agendamento_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -51,11 +52,19 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                       child: TextFormField(
                         cursorColor: Constants.primary,
                         onChanged: controller.setClientField,
+                        focusNode: controller.focusCliente,
                         validator: (value) {
                           if (value.isEmpty) return '* Obrigatório';
                           return null;
                         },
-                        textCapitalization: TextCapitalization.words,
+                        textCapitalization: TextCapitalization.sentences,
+                        onFieldSubmitted: (_) {
+                          controller.focusCliente.unfocus();
+                          FocusScope.of(context).requestFocus(
+                            controller.focusContato,
+                          );
+                        },
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: 'Cliente',
                           labelStyle: TextStyle(
@@ -89,10 +98,16 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                         cursorColor: Constants.primary,
                         keyboardType: TextInputType.number,
                         onChanged: controller.setContatoField,
+                        focusNode: controller.focusContato,
                         validator: (value) {
                           if (value.isEmpty) return '* Obrigatório';
                           return null;
                         },
+                        onFieldSubmitted: (_) {
+                          controller.focusContato.unfocus();
+                          Get.dialog(DialogServicos());
+                        },
+                        textInputAction: TextInputAction.next,
                         inputFormatters: [maskPhoneFormatter],
                         decoration: InputDecoration(
                           labelText: 'Contato',
@@ -124,25 +139,6 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                   ],
                 ),
               ),
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Obx(
-                    () => Checkbox(
-                      value: controller.isRetorno,
-                      onChanged: controller.toogleCheckboxRetorno,
-                      activeColor: Get.theme.primaryColor,
-                    ),
-                  ),
-                  Text(
-                    'É retorno',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),*/
               Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 15),
                 child: Text(
@@ -166,7 +162,10 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                 ),
               ),
               InkWell(
-                onTap: () => Get.dialog(DialogServicos()),
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Get.dialog(DialogServicos());
+                },
                 child: Card(
                     child: Container(
                   height: 42,

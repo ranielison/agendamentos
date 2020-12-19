@@ -3,11 +3,15 @@ import 'package:agendamentos/app/data/models/cliente.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CriarAgendamentoController extends GetxController {
   final _localDataHelper = Get.find<LocalDataHelper>();
   final _agendaController = Get.find<AgendaController>();
+
+  final focusCliente = FocusNode();
+  final focusContato = FocusNode();
 
   DateTime dataAgendamento;
 
