@@ -11,7 +11,8 @@ class AgendaController extends GetxController
     with SingleGetTickerProviderMixin {
   final _localDataHelper = Get.find<LocalDataHelper>();
 
-  Map<DateTime, List<dynamic>> events = {};
+  RxMap<DateTime, List<dynamic>> _events = <DateTime, List<dynamic>>{}.obs;
+  Map<DateTime, List<dynamic>> get events => _events;
 
   RxMap<String, bool> _disponibilidade = <String, bool>{}.obs;
   Map<String, bool> get disponibilidade => _disponibilidade;
@@ -41,6 +42,9 @@ class AgendaController extends GetxController
   _initData() {
     agendamentos = _localDataHelper.getAgendamentos();
     allExpedientes = _localDataHelper.loadExpedienteSettings();
+    _selectedEvents.clear();
+    _disponibilidade.clear();
+    _events.clear();
   }
 
   void initListAgendamentos() {
@@ -53,14 +57,14 @@ class AgendaController extends GetxController
         ag.startDate.day,
       );
 
-      if (events.containsKey(agDay)) {
-        events[agDay].add(ag);
+      if (_events.containsKey(agDay)) {
+        _events[agDay].add(ag);
       } else {
-        events[agDay] = [ag];
+        _events[agDay] = [ag];
       }
     });
 
-    events.forEach(
+    _events.forEach(
       (key, value) {
         bool disponivel = false;
         DateTime data = DateTime(key.year, key.month, key.day);
@@ -97,7 +101,7 @@ class AgendaController extends GetxController
     );
 
     _selectedEvents.clear();
-    _selectedEvents.addAll(events[_selectedDay] ?? []);
+    _selectedEvents.addAll(_events[_selectedDay] ?? []);
     calendarController = CalendarController();
 
     animationController = AnimationController(
@@ -106,6 +110,7 @@ class AgendaController extends GetxController
     );
 
     animationController.forward();
+    refresh();
   }
 
   bool dayIsOpen(DateTime day) {

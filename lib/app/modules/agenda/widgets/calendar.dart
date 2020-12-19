@@ -1,6 +1,5 @@
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/day.dart';
-import 'package:agendamentos/app/modules/agenda/widgets/event_marker.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/selected_day.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/today.dart';
 import 'package:agendamentos/app/utils/constants.dart';
@@ -75,7 +74,7 @@ class Calendar extends StatelessWidget {
         markersBuilder: (context, date, events, holidays) {
           final children = <Widget>[];
 
-          if (events.isNotEmpty) {
+          /*if (events.isNotEmpty) {
             children.add(
               Positioned(
                 right: 1,
@@ -88,7 +87,7 @@ class Calendar extends StatelessWidget {
                 ),
               ),
             );
-          }
+          }*/
 
           if (holidays.isNotEmpty) {
             children.add(
