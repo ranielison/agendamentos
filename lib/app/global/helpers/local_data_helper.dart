@@ -76,7 +76,33 @@ class LocalDataHelper {
     _box.put('meus_servicos', meusServicos);
   }
 
+  void editServico(Servico servico) {
+    dynamic meusServicos = _box.get('meus_servicos');
+
+    if (meusServicos != null) {
+      int index = meusServicos.indexWhere((item) => item.id == servico.id);
+      if (index >= 0) {
+        meusServicos[index] = servico;
+      }
+    }
+  }
+
+  void excluirServico(String id) {
+    dynamic meusServicos = _box.get('meus_servicos');
+
+    if (meusServicos != null) {
+      int index = meusServicos.indexWhere((item) => item.id == id);
+      if (index >= 0) {
+        meusServicos.removeAt(index);
+      }
+    }
+  }
+
   List<Servico> getAllServicos() {
-    return _box.get('meus_servicos');
+    var data = _box.get('meus_servicos');
+    if (data != null) {
+      return List<Servico>.from(data);
+    }
+    return null;
   }
 }

@@ -1,14 +1,19 @@
 import 'package:agendamentos/app/data/models/servico.dart';
+import 'package:agendamentos/app/global/widgets/dialog_confirmacao.dart';
+import 'package:agendamentos/app/modules/meus_servicos/controllers/meus_servicos_controller.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemMeuServico extends StatelessWidget {
   final Servico servico;
 
-  const ItemMeuServico({
+  ItemMeuServico({
     Key key,
     this.servico,
   }) : super(key: key);
+
+  final controller = Get.find<MeusServicosController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +44,24 @@ class ItemMeuServico extends StatelessWidget {
           ),
           new PopupMenuItem<String>(
             child: const Text('Excluir'),
-            value: 'Lion',
+            value: 'Excluir',
           ),
         ],
-        onSelected: (value) {},
+        onSelected: (value) {
+          switch (value) {
+            case 'Editar':
+              controller.openDialogEdit(servico);
+              break;
+            case 'Excluir':
+              Get.dialog(DialogConfirmacao(
+                content: 'Deseja realmente excluir este serviço?',
+                action: () => controller.excluirServico(servico.id),
+              ));
+              break;
+            default:
+              break;
+          }
+        },
       ),
     );
   }

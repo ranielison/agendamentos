@@ -91,25 +91,25 @@ ExpedienteSettings allExpedientes = ExpedienteSettings(
 
 List<Servico> servicosMock = [
   Servico(
-    id: 1,
+    id: '1',
     description: 'Serviço 1',
     value: 11,
     durationInMinutes: 30,
   ),
   Servico(
-    id: 2,
+    id: '2',
     description: 'Serviço 2',
     value: 12,
     durationInMinutes: 30,
   ),
   Servico(
-    id: 2,
+    id: '2',
     description: 'Serviço 3',
     value: 12,
     durationInMinutes: 30,
   ),
   Servico(
-    id: 2,
+    id: '2',
     description: 'Serviço 4',
     value: 12,
     durationInMinutes: 30,

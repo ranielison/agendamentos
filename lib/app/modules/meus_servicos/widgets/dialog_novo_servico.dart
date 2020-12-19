@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/global/widgets/geral_button.dart';
 import 'package:agendamentos/app/modules/meus_servicos/controllers/meus_servicos_controller.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DialogNovoServico extends StatelessWidget {
+  final Servico servico;
+
+  DialogNovoServico({
+    Key key,
+    this.servico,
+  }) : super(key: key);
+
   final controller = Get.find<MeusServicosController>();
 
   @override
@@ -26,6 +34,7 @@ class DialogNovoServico extends StatelessWidget {
                   child: TextFormField(
                     cursorColor: Get.theme.primaryColor,
                     onChanged: controller.setServicoField,
+                    initialValue: controller.servicoField,
                     validator: (value) {
                       if (value.isEmpty) return '* Obrigatório';
                       return null;
@@ -63,6 +72,7 @@ class DialogNovoServico extends StatelessWidget {
                   child: TextFormField(
                     cursorColor: Get.theme.primaryColor,
                     onChanged: controller.setDurationField,
+                    initialValue: controller.durationField,
                     validator: (value) {
                       if (value.isEmpty) return '* Obrigatório';
                       return null;
@@ -111,8 +121,10 @@ class DialogNovoServico extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: GeralButton(
-              textButton: 'Adicionar',
-              action: controller.addServico,
+              textButton: servico != null ? 'Salvar' : 'Adicionar',
+              action: servico != null
+                  ? () => controller.editServico(servico)
+                  : controller.addServico,
             ),
           )
         ],

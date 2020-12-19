@@ -6,7 +6,7 @@ part 'servico.g.dart';
 @HiveType(typeId: Constants.hiveServicoAdapter)
 class Servico {
   @HiveField(0)
-  int id;
+  String id;
 
   @HiveField(1)
   String description;
