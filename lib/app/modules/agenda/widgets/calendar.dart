@@ -83,7 +83,7 @@ class Calendar extends StatelessWidget {
                   calendarController: controller.calendarController,
                   date: date,
                   amount: controller.events[date].length,
-                  visible: false, //TODO: permitir que o usuário escolha
+                  visible: false, 
                 ),
               ),
             );
