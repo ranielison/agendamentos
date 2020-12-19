@@ -5,23 +5,25 @@ class GeralButton extends StatelessWidget {
   final String textButton;
   final Function action;
   final bool loading;
+  final bool enabled;
 
   const GeralButton({
     Key key,
     @required this.textButton,
     @required this.action,
     this.loading = false,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: action,
+      onTap: enabled ? action : null,
       child: Container(
         height: 42,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Get.theme.primaryColor,
+          color: enabled ? Get.theme.primaryColor : Colors.grey,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Visibility(

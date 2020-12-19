@@ -167,32 +167,36 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                   Get.dialog(DialogServicos());
                 },
                 child: Card(
-                    child: Container(
-                  height: 42,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add, color: Colors.grey),
-                      Text(
-                        'Adicionar serviço',
-                        style: TextStyle(
-                          color: Colors.grey,
+                  child: Container(
+                    height: 42,
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add, color: Colors.grey),
+                        Text(
+                          'Adicionar serviço',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                )),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 30),
-                child: GeralButton(
-                  textButton: 'Agendar',
-                  action: () {
-                    if (_formKey.currentState.validate()) {
-                      controller.criarAgendamento();
-                    }
-                  },
+                child: Obx(
+                  () => GeralButton(
+                    textButton: 'Agendar',
+                    enabled: controller.servicosSelecionados.isNotEmpty,
+                    action: () {
+                      if (_formKey.currentState.validate()) {
+                        controller.criarAgendamento();
+                      }
+                    },
+                  ),
                 ),
               )
             ],
