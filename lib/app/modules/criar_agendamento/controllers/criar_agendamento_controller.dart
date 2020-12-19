@@ -1,4 +1,3 @@
-import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/cliente.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
@@ -21,9 +20,6 @@ class CriarAgendamentoController extends GetxController {
   RxList<Servico> _servicosSelecionados = <Servico>[].obs;
   List<Servico> get servicosSelecionados => _servicosSelecionados.toList();
 
-  Rx<Servico> _servicoSelecetd = Servico().obs;
-  Servico get servicoSelected => _servicoSelecetd.value;
-
   RxBool _isRetorno = false.obs;
   bool get isRetorno => _isRetorno.value;
 
@@ -39,8 +35,8 @@ class CriarAgendamentoController extends GetxController {
   }
 
   void _getServicos() {
-    _servicos.assignAll(servicosMock);
-    _servicoSelecetd.value = _servicos?.first;
+    List<Servico> servicosData = _localDataHelper.getAllServicos() ?? [];
+    _servicos.assignAll(servicosData);
   }
 
   void setClientField(String value) {
@@ -53,10 +49,6 @@ class CriarAgendamentoController extends GetxController {
 
   void toogleCheckboxRetorno(bool value) {
     _isRetorno.value = value;
-  }
-
-  void setServiceSelected(Servico servico) {
-    _servicoSelecetd.value = servico;
   }
 
   void addServico(Servico servico) {

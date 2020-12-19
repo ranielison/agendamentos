@@ -13,7 +13,7 @@ class ItemMeuServico extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Limpeza de pele'),
+      title: Text(servico.description),
       subtitle: Row(
         children: [
           Text('Duração: ', style: TextStyle(color: Colors.grey)),
@@ -21,7 +21,7 @@ class ItemMeuServico extends StatelessWidget {
           Text(
             Constants.hformat.format(
               DateTime(2020).add(
-                Duration(minutes: 45),
+                Duration(minutes: servico.durationInMinutes),
               ),
             ),
             style: TextStyle(

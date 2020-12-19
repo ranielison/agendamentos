@@ -20,7 +20,6 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Novo agendamento'),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -125,7 +124,7 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                   ],
                 ),
               ),
-              Row(
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Obx(
@@ -143,9 +142,9 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 30),
+                padding: const EdgeInsets.only(top: 20, bottom: 15),
                 child: Text(
                   'Serviços',
                   textAlign: TextAlign.center,

@@ -1,5 +1,6 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
+import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataHelper {
@@ -61,5 +62,21 @@ class LocalDataHelper {
 
   ExpedienteSettings loadExpedienteSettings() {
     return _box.get('expediente_settings');
+  }
+
+  void addServico(Servico servico) {
+    dynamic meusServicos = _box.get('meus_servicos');
+
+    if (meusServicos != null) {
+      meusServicos.add(servico);
+    } else {
+      meusServicos = [servico];
+    }
+
+    _box.put('meus_servicos', meusServicos);
+  }
+
+  List<Servico> getAllServicos() {
+    return _box.get('meus_servicos');
   }
 }

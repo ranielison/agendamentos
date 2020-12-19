@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/modules/meus_servicos/widgets/dialog_novo_servico.dart';
 import 'package:agendamentos/app/modules/meus_servicos/widgets/item_meu_servico.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +12,37 @@ class MeusServicosView extends GetView<MeusServicosController> {
       appBar: AppBar(
         title: Text('Meus serviços'),
       ),
-      body: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (_, index) {
-          return ItemMeuServico();
-        },
-      ),
+      body: controller.servicos.isNotEmpty
+          ? Obx(
+              () => ListView.builder(
+                itemCount: controller.servicos.length,
+                itemBuilder: (_, index) {
+                  Servico item = controller.servicos[index];
+
+                  return ItemMeuServico(
+                    servico: item,
+                  );
+                },
+              ),
+            )
+          : Center(
+              child: Text(
+                'Não há serviços cadastrados',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
           color: Colors.white,
         ),
         backgroundColor: Get.theme.primaryColor,
-        onPressed: () => Get.dialog(DialogNovoServico()),
+        onPressed: () {
+          controller.resetFields();
+          Get.dialog(DialogNovoServico());
+        },
       ),
     );
   }

@@ -7,11 +7,6 @@ import 'package:get/get.dart';
 class DialogNovoServico extends StatelessWidget {
   final controller = Get.find<MeusServicosController>();
 
-  _addServico() {
-    //Adicionar o serviço
-    Get.back();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -23,6 +18,7 @@ class DialogNovoServico extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Form(
+            key: controller.formKey,
             child: Column(
               children: [
                 Padding(
@@ -116,7 +112,7 @@ class DialogNovoServico extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: GeralButton(
               textButton: 'Adicionar',
-              action: _addServico,
+              action: controller.addServico,
             ),
           )
         ],
