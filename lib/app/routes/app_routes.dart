@@ -9,4 +9,5 @@ abstract class Routes {
   static const SETTINGS = '/settings';
   static const DETAILS = '/details';
   static const CADASTRAR_SERVICO = '/cadastrar-servico';
+  static const MEUS_SERVICOS = '/meus-servicos';
 }

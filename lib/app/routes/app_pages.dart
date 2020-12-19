@@ -1,3 +1,5 @@
+import 'package:agendamentos/app/modules/meus_servicos/views/meus_servicos_view.dart';
+import 'package:agendamentos/app/modules/meus_servicos/bindings/meus_servicos_binding.dart';
 import 'package:agendamentos/app/modules/cadastrar_servico/views/cadastrar_servico_view.dart';
 import 'package:agendamentos/app/modules/cadastrar_servico/bindings/cadastrar_servico_binding.dart';
 import 'package:agendamentos/app/modules/details/views/details_view.dart';
@@ -53,6 +55,11 @@ class AppPages {
       name: Routes.CADASTRAR_SERVICO, 
       page:()=> CadastrarServicoView(), 
       binding: CadastrarServicoBinding(),
+    ),
+    GetPage(
+      name: Routes.MEUS_SERVICOS, 
+      page:()=> MeusServicosView(), 
+      binding: MeusServicosBinding(),
     ),
   ];
 }

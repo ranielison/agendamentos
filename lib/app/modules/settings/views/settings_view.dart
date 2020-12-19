@@ -1,4 +1,5 @@
 import 'package:agendamentos/app/modules/settings/widgets/horario_comercial.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/settings/controllers/settings_controller.dart';
@@ -61,6 +62,33 @@ class SettingsView extends GetView<SettingsController> {
               ],
             ),
           ),
+          Divider(),
+          InkWell(
+            onTap: () => Get.toNamed(Routes.MEUS_SERVICOS),
+            child: Card(
+              child: Container(
+                height: 52,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    Text(
+                      'Meus serviços',
+                      style: TextStyle(
+                        color: Get.theme.primaryColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Get.theme.primaryColor,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
