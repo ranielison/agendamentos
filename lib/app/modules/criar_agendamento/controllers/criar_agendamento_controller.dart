@@ -83,6 +83,10 @@ class CriarAgendamentoController extends GetxController {
     print(maxDuration.abs());
   }
 
+  bool get durationPermitida {
+    return durationPreenchida.value <= maxDuration;
+  }
+
   void setClientField(String value) {
     _clientField = value;
   }
@@ -106,10 +110,8 @@ class CriarAgendamentoController extends GetxController {
   }
 
   void criarAgendamento() {
-    if (_servicosSelecionados.isEmpty) {
-      //Exibir mensagem avisando para adicionar serviços
-      return;
-    }
+    if (_servicosSelecionados.isEmpty || !durationPermitida) return;
+
     Agendamento agendamento = Agendamento(
       cliente: Cliente(
         nome: _clientField,

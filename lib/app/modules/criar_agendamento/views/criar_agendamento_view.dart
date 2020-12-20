@@ -214,13 +214,25 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                       SizedBox(height: 5),
                       GeralButton(
                         textButton: 'Agendar',
-                        enabled: controller.servicosSelecionados.isNotEmpty,
+                        enabled: controller.servicosSelecionados.isNotEmpty &&
+                            controller.durationPermitida,
                         action: () {
                           if (_formKey.currentState.validate()) {
                             controller.criarAgendamento();
                           }
                         },
                       ),
+                      SizedBox(height: 10),
+                      Visibility(
+                        visible: !controller.durationPermitida,
+                        child: Text(
+                          '* Duração excede o limite disponível',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
