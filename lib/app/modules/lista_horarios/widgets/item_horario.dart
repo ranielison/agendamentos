@@ -1,4 +1,5 @@
 import 'package:agendamentos/app/data/models/horario.dart';
+import 'package:agendamentos/app/modules/lista_horarios/controllers/lista_horarios_controller.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:get/get.dart';
 class ItemHorario extends StatelessWidget {
   final Horario horario;
 
-  const ItemHorario({Key key, this.horario}) : super(key: key);
+  ItemHorario({Key key, this.horario}) : super(key: key);
+
+  final controller = Get.find<ListaHorariosController>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +19,9 @@ class ItemHorario extends StatelessWidget {
         Routes.CRIAR_AGENDAMENTO,
         arguments: {
           'date': horario.start,
+          'horarios': controller.horarios,
+          'pausa': controller.pausa,
+          'fim': controller.fim,
         },
       ),
       child: Container(

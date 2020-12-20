@@ -188,14 +188,40 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Obx(
-                  () => GeralButton(
-                    textButton: 'Agendar',
-                    enabled: controller.servicosSelecionados.isNotEmpty,
-                    action: () {
-                      if (_formKey.currentState.validate()) {
-                        controller.criarAgendamento();
-                      }
-                    },
+                  () => Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Duração total: ',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Text(
+                            Constants.hformat.format(
+                              DateTime(2020).add(
+                                controller.durationPreenchida.value,
+                              ),
+                            ),
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      GeralButton(
+                        textButton: 'Agendar',
+                        enabled: controller.servicosSelecionados.isNotEmpty,
+                        action: () {
+                          if (_formKey.currentState.validate()) {
+                            controller.criarAgendamento();
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               )

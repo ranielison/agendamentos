@@ -15,6 +15,11 @@ class ListaHorariosController extends GetxController {
 
   List<Agendamento> _agendamentos;
 
+  DateTime inicio;
+  DateTime fim;
+  DateTime pausa;
+  DateTime retorno;
+
   @override
   onInit() {
     super.onInit();
@@ -45,22 +50,19 @@ class ListaHorariosController extends GetxController {
 
     if (!allExpedientes.expedientes[position].aberto) return;
 
-    DateTime inicio = today.add(
+    inicio = today.add(
       Duration(
         hours: allExpedientes.expedientes[position].inicio[0],
         minutes: allExpedientes.expedientes[position].inicio[1],
       ),
     );
 
-    DateTime fim = today.add(
+    fim = today.add(
       Duration(
         hours: allExpedientes.expedientes[position].fim[0],
         minutes: allExpedientes.expedientes[position].fim[1],
       ),
     );
-
-    DateTime pausa;
-    DateTime retorno;
 
     if (allExpedientes.expedientes[position].pausa[0] != -1) {
       pausa = today.add(
@@ -78,6 +80,8 @@ class ListaHorariosController extends GetxController {
       );
     }
 
+    DateTime pausaDia = pausa;
+
     DateTime atual = inicio;
     int laco = 0;
     while (true) {
@@ -92,10 +96,10 @@ class ListaHorariosController extends GetxController {
       );
       atual = atual.add(Duration(minutes: interval));
 
-      if (pausa != null) {
+      if (pausaDia != null) {
         if (atual.compareTo(pausa) >= 0) {
           atual = retorno;
-          pausa = null;
+          pausaDia = null;
         }
       }
 

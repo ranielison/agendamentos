@@ -1,5 +1,7 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/cliente.dart';
+import 'package:agendamentos/app/data/models/expediente_settings.dart';
+import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
@@ -14,6 +16,12 @@ class CriarAgendamentoController extends GetxController {
   final focusContato = FocusNode();
 
   DateTime dataAgendamento;
+  DateTime pausa;
+  DateTime fim;
+  Duration maxDuration;
+  Rx<Duration> durationPreenchida = Duration().obs;
+
+  List<Horario> allHorarios;
 
   String _clientField = '';
   String _contatoField = '';
@@ -32,15 +40,47 @@ class CriarAgendamentoController extends GetxController {
     super.onInit();
     _getArguments();
     _getServicos();
+    _calculeMaxDuration();
   }
 
   void _getArguments() {
     dataAgendamento = Get.arguments['date'];
+    allHorarios = Get.arguments['horarios'];
+    pausa = Get.arguments['pausa'];
+    fim = Get.arguments['fim'];
   }
 
   void _getServicos() {
     List<Servico> servicosData = _localDataHelper.getAllServicos() ?? [];
     _servicos.assignAll(servicosData);
+  }
+
+  void _calculeMaxDuration() {
+    ExpedienteSettings exps = _localDataHelper.loadExpedienteSettings();
+
+    int horariosVagos = 1;
+    int index =
+        allHorarios.indexWhere((element) => element.start == dataAgendamento);
+    DateTime horarioFinal;
+
+    if (index >= 0) {
+      for (var i = index + 1; i < allHorarios.length; i++) {
+        if (pausa != null && dataAgendamento.compareTo(pausa) <= 0) {
+          horarioFinal = pausa;
+        } else {
+          horarioFinal = fim;
+        }
+
+        if (allHorarios[i].livre &&
+            allHorarios[i].start.compareTo(horarioFinal) <= 0) {
+          horariosVagos++;
+        }
+      }
+    }
+    maxDuration = Duration(
+      minutes: horariosVagos * exps.intervaloInMinutes,
+    );
+    print(maxDuration.abs());
   }
 
   void setClientField(String value) {
@@ -57,10 +97,12 @@ class CriarAgendamentoController extends GetxController {
 
   void addServico(Servico servico) {
     _servicosSelecionados.add(servico);
+    durationPreenchida.value += Duration(minutes: servico.durationInMinutes);
   }
 
   void removeServico(Servico servico) {
     _servicosSelecionados.remove(servico);
+    durationPreenchida.value -= Duration(minutes: servico.durationInMinutes);
   }
 
   void criarAgendamento() {
