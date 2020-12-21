@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart' as mock;
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
@@ -36,7 +37,17 @@ class AgendaController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    _checkDataBase();
     initListAgendamentos();
+  }
+
+  void _checkDataBase() {
+    ExpedienteSettings exps = _localDataHelper.loadExpedienteSettings();
+
+    if (exps == null) {
+      exps = mock.allExpedientes;
+      _localDataHelper.saveExpedienteSettings(exps);
+    }
   }
 
   _initData() {
@@ -116,6 +127,11 @@ class AgendaController extends GetxController
   bool dayIsOpen(DateTime day) {
     int weekDay = day.weekday;
     return allExpedientes.expedientes[weekDay - 1].aberto;
+  }
+
+  void removeEventFromSelectedEvents(String id) {
+    _selectedEvents.removeWhere((element) => element.idAgendamento == id);
+    //_events[_selectedDay].removeWhere((element) => element.idAgendamento == id);
   }
 
   void onDaySelected(

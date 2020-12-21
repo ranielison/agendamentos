@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
@@ -108,6 +109,10 @@ class SettingsController extends GetxController {
       }
       intervalSelected.value = settings.intervaloInMinutes;
       refresh();
+    } else {
+      settings = allExpedientes;
+      _localDataHelper.saveExpedienteSettings(settings);
+      _loadData();
     }
   }
 

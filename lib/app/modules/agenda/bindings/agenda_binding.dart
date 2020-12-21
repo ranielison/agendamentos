@@ -5,8 +5,8 @@ import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.da
 class AgendaBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AgendaController>(
-      () => AgendaController(),
+    Get.put<AgendaController>(
+      AgendaController(),
     );
   }
 }

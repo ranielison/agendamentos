@@ -40,7 +40,7 @@ class LocalDataHelper {
     try {
       if (agendamentos != null) {
         int indexAgendamento = (agendamentos as List).indexWhere(
-          (element) => element.id == id,
+          (element) => element.idAgendamento == id,
         );
         if (indexAgendamento >= 0) {
           (agendamentos as List).removeAt(indexAgendamento);

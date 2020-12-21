@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/settings/widgets/horario_comercial.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/settings/controllers/settings_controller.dart';
 
 class SettingsView extends GetView<SettingsController> {
+  final _localDataHelper = Get.find<LocalDataHelper>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,14 @@ class SettingsView extends GetView<SettingsController> {
                 onPressed: controller.saveData,
               ),
             ),
-          )
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            onPressed: () => _localDataHelper.limpaGeral(),
+          ),
         ],
       ),
       body: Column(

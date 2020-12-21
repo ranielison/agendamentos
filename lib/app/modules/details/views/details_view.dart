@@ -7,8 +7,16 @@ class DetailsView extends GetView<DetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DetailsView'),
-        centerTitle: true,
+        title: Text('Detalhes'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            onPressed: () => controller.deleteAgendamento(),
+          ),
+        ],
       ),
       body: Center(
         child: Text(
