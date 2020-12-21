@@ -7,10 +7,12 @@ import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class CriarAgendamentoController extends GetxController {
   final _localDataHelper = Get.find<LocalDataHelper>();
   final _agendaController = Get.find<AgendaController>();
+  final _uuid = Get.find<Uuid>();
 
   final focusCliente = FocusNode();
   final focusContato = FocusNode();
@@ -113,6 +115,7 @@ class CriarAgendamentoController extends GetxController {
     if (_servicosSelecionados.isEmpty || !durationPermitida) return;
 
     Agendamento agendamento = Agendamento(
+      idAgendamento: _uuid.v1(),
       cliente: Cliente(
         nome: _clientField,
         telefone: _contatoField,

@@ -29,6 +29,7 @@ class Agendamento {
   bool concluido;
 
   Agendamento({
+    this.idAgendamento,
     this.cliente,
     this.durationInMinutes,
     this.startDate,
