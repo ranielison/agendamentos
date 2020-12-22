@@ -16,7 +16,6 @@ import 'app/routes/app_pages.dart';
 
 //TODO: Criar funcionalidade de exportar/importar json com os dados salvos
 //TODO: Criar tela de detalhes do agendamento
-//TODO: Atualizar lista de agendamentos do dia assim que abre a agenda
 //TODO: Permitir que o usuario exiba ou oculte o numero de agendamentos do dia no calendario
 
 void main() async {

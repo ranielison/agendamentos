@@ -111,8 +111,14 @@ class AgendaController extends GetxController
       },
     );
 
+    DateTime key = DateTime(
+      _selectedDay.value.year,
+      _selectedDay.value.month,
+      _selectedDay.value.day,
+    );
+
     _selectedEvents.clear();
-    _selectedEvents.addAll(_events[_selectedDay] ?? []);
+    _selectedEvents.addAll(_events[key] ?? []);
     calendarController = CalendarController();
 
     animationController = AnimationController(
