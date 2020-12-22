@@ -130,8 +130,31 @@ class AgendaController extends GetxController
   }
 
   void removeEventFromSelectedEvents(String id) {
+    DateTime key = DateTime(
+      _selectedDay.value.year,
+      _selectedDay.value.month,
+      _selectedDay.value.day,
+    );
+
     _selectedEvents.removeWhere((element) => element.idAgendamento == id);
-    //_events[_selectedDay].removeWhere((element) => element.idAgendamento == id);
+    _events[key].removeWhere(
+      (element) => element.idAgendamento == id,
+    );
+  }
+
+  void addEventToSelectedEvents(Agendamento ag) {
+    DateTime key = DateTime(
+      _selectedDay.value.year,
+      _selectedDay.value.month,
+      _selectedDay.value.day,
+    );
+
+    _selectedEvents.add(ag);
+    if (_events[key] != null) {
+      _events[key].add(ag);
+    } else {
+      _events[key] = [ag];
+    }
   }
 
   void onDaySelected(

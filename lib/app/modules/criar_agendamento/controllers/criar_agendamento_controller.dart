@@ -130,7 +130,8 @@ class CriarAgendamentoController extends GetxController {
     );
 
     _localDataHelper.addAgendamento(agendamento);
-    _agendaController.initListAgendamentos();
+    _agendaController.addEventToSelectedEvents(agendamento);
+    //_agendaController.initListAgendamentos();
     Get.back();
     Get.back();
   }

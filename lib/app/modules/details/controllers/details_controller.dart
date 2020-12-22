@@ -1,6 +1,7 @@
 import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailsController extends GetxController {
@@ -25,8 +26,7 @@ class DetailsController extends GetxController {
       _agendaController.removeEventFromSelectedEvents(
         agendamento.idAgendamento,
       );
-      Get.back();
-      Get.back();
+      Get.until((route) => Get.currentRoute == Routes.AGENDA);
     }
   }
 }

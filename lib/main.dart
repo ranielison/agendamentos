@@ -14,7 +14,6 @@ import 'app/data/models/servico.dart';
 import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
-//TODO: Excluir agendamento
 //TODO: Criar funcionalidade de exportar/importar json com os dados salvos
 //TODO: Criar tela de detalhes do agendamento
 //TODO: Atualizar lista de agendamentos do dia assim que abre a agenda
