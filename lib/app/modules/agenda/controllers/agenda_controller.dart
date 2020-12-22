@@ -157,9 +157,10 @@ class AgendaController extends GetxController
 
     _selectedEvents.add(ag);
     if (_events[key] != null) {
-      _events[key].add(ag);
+      _events[key] = [..._events[key], ag];
     } else {
-      _events[key] = [ag];
+      _events.putIfAbsent(key, () => [ag]);
+      refresh();
     }
   }
 

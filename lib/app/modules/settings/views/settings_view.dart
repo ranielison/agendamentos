@@ -1,3 +1,4 @@
+import 'package:agendamentos/app/global/controllers/global_controller.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/settings/widgets/horario_comercial.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
@@ -7,6 +8,8 @@ import 'package:agendamentos/app/modules/settings/controllers/settings_controlle
 
 class SettingsView extends GetView<SettingsController> {
   final _localDataHelper = Get.find<LocalDataHelper>();
+  final _globalController = Get.find<GlobalController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +98,28 @@ class SettingsView extends GetView<SettingsController> {
                     )
                   ],
                 ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Obx(
+              () => Row(
+                children: [
+                  Text(
+                    'Contador de agendamentos',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Spacer(),
+                  Checkbox(
+                    value: _globalController.showEventAmount,
+                    activeColor: Get.theme.primaryColor,
+                    onChanged: _globalController.setShowEventAmount,
+                  ),
+                ],
               ),
             ),
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class EventMarker extends StatelessWidget {
@@ -23,11 +24,7 @@ class EventMarker extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          color: calendarController.isSelected(date)
-              ? Colors.brown[500]
-              : calendarController.isToday(date)
-                  ? Colors.brown[300]
-                  : Colors.blue[400],
+          color: Get.theme.primaryColor,
         ),
         width: 16.0,
         height: 16.0,

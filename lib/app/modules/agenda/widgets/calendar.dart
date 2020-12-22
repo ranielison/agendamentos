@@ -1,5 +1,7 @@
+import 'package:agendamentos/app/global/controllers/global_controller.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/day.dart';
+import 'package:agendamentos/app/modules/agenda/widgets/event_marker.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/selected_day.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/today.dart';
 import 'package:agendamentos/app/utils/constants.dart';
@@ -9,6 +11,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 class Calendar extends StatelessWidget {
   final controller = Get.find<AgendaController>();
+  final _globalController = Get.find<GlobalController>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,20 +77,22 @@ class Calendar extends StatelessWidget {
         markersBuilder: (context, date, events, holidays) {
           final children = <Widget>[];
 
-          /*if (events.isNotEmpty) {
+          if (events.isNotEmpty) {
             children.add(
               Positioned(
                 right: 1,
                 bottom: 1,
-                child: EventMarker(
-                  calendarController: controller.calendarController,
-                  date: date,
-                  amount: controller.events[date].length,
-                  visible: false, 
+                child: Obx(
+                  () => EventMarker(
+                    calendarController: controller.calendarController,
+                    date: date,
+                    amount: controller.events[date]?.length ?? 0,
+                    visible: _globalController.showEventAmount,
+                  ),
                 ),
               ),
             );
-          }*/
+          }
 
           if (holidays.isNotEmpty) {
             children.add(
