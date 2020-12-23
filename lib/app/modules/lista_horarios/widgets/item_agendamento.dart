@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 
 class ItemAgendamento extends StatelessWidget {
   final Agendamento agendamento;
+  final int position;
 
   const ItemAgendamento({
     Key key,
     this.agendamento,
+    this.position,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,12 @@ class ItemAgendamento extends StatelessWidget {
               width: 50,
               margin: const EdgeInsets.only(right: 10),
               alignment: Alignment.center,
-              child: Text('1', style: TextStyle(color: Colors.grey)),
+              child: Text(
+                position.toString(),
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -146,6 +146,7 @@ class AgendaController extends GetxController
     _events[key].removeWhere(
       (element) => element.idAgendamento == id,
     );
+    update();
   }
 
   void addEventToSelectedEvents(Agendamento ag) {

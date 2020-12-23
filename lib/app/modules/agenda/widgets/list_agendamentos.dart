@@ -14,14 +14,24 @@ class ListAgendamentos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NoAnimationList(
-      child: ListView.builder(
-        itemCount: agendamentos?.length ?? 0,
-        itemBuilder: (_, index) {
-          return ItemAgendamento(
-            agendamento: agendamentos[index],
-          );
-        },
-      ),
+      child: agendamentos.isNotEmpty
+          ? ListView.builder(
+              itemCount: agendamentos?.length ?? 0,
+              itemBuilder: (_, index) {
+                return ItemAgendamento(
+                  agendamento: agendamentos[index],
+                  position: index + 1,
+                );
+              },
+            )
+          : Center(
+              child: Text(
+                'Sem agendamentos hoje',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
     );
   }
 }
