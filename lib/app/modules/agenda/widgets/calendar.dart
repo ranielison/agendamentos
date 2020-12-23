@@ -40,11 +40,6 @@ class Calendar extends StatelessWidget {
       ),
       builders: CalendarBuilders(
         dayBuilder: (context, date, _) {
-          if (date.day == 22) {
-            print('Disponibilidade:');
-            print(controller.disponibilidade[date]);
-          }
-
           return Obx(
             () => Day(
               day: date.day,

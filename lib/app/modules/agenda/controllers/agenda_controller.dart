@@ -160,7 +160,7 @@ class AgendaController extends GetxController
       _events[key] = [..._events[key], ag];
     } else {
       _events.putIfAbsent(key, () => [ag]);
-      refresh();
+      update();
     }
   }
 

@@ -17,7 +17,11 @@ class AgendaView extends GetView<AgendaController> {
       ),
       body: Column(
         children: [
-          Calendar(),
+          GetBuilder<AgendaController>(
+            builder: (_) {
+              return Calendar();
+            },
+          ),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),

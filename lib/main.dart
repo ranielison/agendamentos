@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app/data/models/agendamento.dart';
 import 'app/data/models/cliente.dart';
 import 'app/data/models/expediente.dart';
@@ -16,7 +17,6 @@ import 'app/routes/app_pages.dart';
 
 //TODO: Criar funcionalidade de exportar/importar json com os dados salvos
 //TODO: Criar tela de detalhes do agendamento
-//TODO: Permitir que o usuario exiba ou oculte o numero de agendamentos do dia no calendario
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +35,8 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
+  Get.put<SharedPreferences>(await SharedPreferences.getInstance());
 
   initializeDateFormatting().then(
     (_) => runApp(

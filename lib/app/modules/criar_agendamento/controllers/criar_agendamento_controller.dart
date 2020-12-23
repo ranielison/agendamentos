@@ -5,6 +5,7 @@ import 'package:agendamentos/app/data/models/horario.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -131,8 +132,6 @@ class CriarAgendamentoController extends GetxController {
 
     _localDataHelper.addAgendamento(agendamento);
     _agendaController.addEventToSelectedEvents(agendamento);
-    //_agendaController.initListAgendamentos();
-    Get.back();
-    Get.back();
+    Get.until((route) => Get.currentRoute == Routes.AGENDA);
   }
 }
