@@ -165,6 +165,32 @@ class AgendaController extends GetxController
     }
   }
 
+  void updateEventOnSelectedEvents(Agendamento ag) {
+    int index;
+    DateTime key = DateTime(
+      _selectedDay.value.year,
+      _selectedDay.value.month,
+      _selectedDay.value.day,
+    );
+
+    index = _selectedEvents.indexWhere(
+      (element) => element.idAgendamento == ag.idAgendamento,
+    );
+
+    if (index >= 0) {
+      _selectedEvents[index] = ag;
+    }
+
+    index = _events[key].indexWhere(
+      (element) => element.idAgendamento == ag.idAgendamento,
+    );
+
+    if (index >= 0) {
+      _events[key][index] = ag;
+    }
+    //update();
+  }
+
   void onDaySelected(
     DateTime day,
     List events,

@@ -52,6 +52,20 @@ class LocalDataHelper {
     }
   }
 
+  void updateAgendamento(Agendamento newAgendamento) {
+    dynamic agendamentos = _box.get('agendamentos');
+
+    if (agendamentos != null) {
+      int indexAgendamento = (agendamentos as List).indexWhere(
+        (element) => element.idAgendamento == newAgendamento.idAgendamento,
+      );
+      if (indexAgendamento >= 0) {
+        agendamentos[indexAgendamento] = newAgendamento;
+      }
+      _box.put('agendamentos', agendamentos);
+    }
+  }
+
   void saveExpedienteSettings(ExpedienteSettings settings) {
     try {
       _box.put('expediente_settings', settings);

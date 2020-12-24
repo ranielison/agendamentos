@@ -38,7 +38,17 @@ class DetailsView extends GetView<DetailsController> {
                     ),
                   ),
                   Spacer(),
-                  Icon(Icons.timelapse, color: Colors.grey),
+                  Visibility(
+                    visible: controller.agendamento.concluido,
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                    replacement: Icon(
+                      Icons.timelapse,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -89,41 +99,44 @@ class DetailsView extends GetView<DetailsController> {
             CardServicos(
               servicos: controller.agendamento.servicos,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ActionButton(
-                    textButton: 'Cancelar',
-                    colorButton: Colors.red[400],
-                    action: () {
-                      Get.dialog(AlertDialog(
-                        title: Text('Confirmação'),
-                        content: Text(
-                          'Tem certeza que deseja cancelar o agendamento?',
-                        ),
-                        actions: [
-                          FlatButton(
-                            onPressed: () => Get.back(),
-                            child: Text('Não'),
+            Visibility(
+              visible: !controller.agendamento.concluido,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ActionButton(
+                      textButton: 'Cancelar',
+                      colorButton: Colors.red[400],
+                      action: () {
+                        Get.dialog(AlertDialog(
+                          title: Text('Confirmação'),
+                          content: Text(
+                            'Tem certeza que deseja cancelar o agendamento?',
                           ),
-                          FlatButton(
-                            onPressed: controller.deleteAgendamento,
-                            child: Text('Sim'),
-                          )
-                        ],
-                      ));
-                    },
+                          actions: [
+                            FlatButton(
+                              onPressed: () => Get.back(),
+                              child: Text('Não'),
+                            ),
+                            FlatButton(
+                              onPressed: controller.deleteAgendamento,
+                              child: Text('Sim'),
+                            )
+                          ],
+                        ));
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: ActionButton(
-                    textButton: 'Finalizar',
-                    colorButton: Colors.green,
-                    action: () {},
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: ActionButton(
+                      textButton: 'Finalizar',
+                      colorButton: Colors.green,
+                      action: controller.finalizarAgendamento,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

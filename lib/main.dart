@@ -16,7 +16,6 @@ import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
 //TODO: Criar funcionalidade de exportar/importar json com os dados salvos
-//TODO: Opção de finalizar agendamento
 //TODO: Deixar dias do passado em cinza
 
 void main() async {

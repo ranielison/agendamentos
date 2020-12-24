@@ -31,6 +31,13 @@ class DetailsController extends GetxController {
     }
   }
 
+  void finalizarAgendamento() {
+    agendamento.concluido = true;
+    _localDataHelper.updateAgendamento(agendamento);
+    _agendaController.updateEventOnSelectedEvents(agendamento);
+    Get.until((route) => Get.currentRoute == Routes.AGENDA);
+  }
+
   void openOnWhatsapp() {
     String telefone = agendamento.cliente.telefone;
     if (telefone != null) {
