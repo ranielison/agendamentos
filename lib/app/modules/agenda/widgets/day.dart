@@ -4,12 +4,14 @@ class Day extends StatelessWidget {
   final int day;
   final bool disponivel;
   final bool aberto;
+  final bool isPast;
 
   const Day({
     Key key,
     this.day,
     this.disponivel,
     this.aberto,
+    this.isPast = false,
   }) : super(key: key);
 
   @override
@@ -35,10 +37,12 @@ class Day extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
               color: !aberto
-                  ? Colors.grey[800]
-                  : disponivel
-                      ? Colors.green
-                      : Colors.red,
+                  ? Colors.black
+                  : isPast
+                      ? Colors.grey
+                      : disponivel
+                          ? Colors.green
+                          : Colors.red,
             ),
           )
         ],

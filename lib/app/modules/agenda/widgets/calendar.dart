@@ -13,6 +13,12 @@ class Calendar extends StatelessWidget {
   final controller = Get.find<AgendaController>();
   final _globalController = Get.find<GlobalController>();
 
+  final DateTime today = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
@@ -44,6 +50,7 @@ class Calendar extends StatelessWidget {
             () => Day(
               day: date.day,
               aberto: controller.dayIsOpen(date),
+              isPast: date.compareTo(today) < 0,
               disponivel:
                   controller.disponibilidade[Constants.dformat.format(date)] ??
                       true,
@@ -81,6 +88,7 @@ class Calendar extends StatelessWidget {
                   () => EventMarker(
                     calendarController: controller.calendarController,
                     date: date,
+                    isPast: date.compareTo(today) < 0,
                     amount: controller.events[date]?.length ?? 0,
                     visible: _globalController.showEventAmount,
                   ),

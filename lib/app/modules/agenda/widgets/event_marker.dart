@@ -7,6 +7,7 @@ class EventMarker extends StatelessWidget {
   final DateTime date;
   final int amount;
   final bool visible;
+  final bool isPast;
 
   const EventMarker({
     Key key,
@@ -14,6 +15,7 @@ class EventMarker extends StatelessWidget {
     this.date,
     this.amount,
     this.visible,
+    this.isPast,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class EventMarker extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          color: Get.theme.primaryColor,
+          color: isPast ? Colors.grey : Get.theme.primaryColor,
         ),
         width: 16.0,
         height: 16.0,
