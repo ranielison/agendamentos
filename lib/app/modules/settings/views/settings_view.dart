@@ -28,13 +28,6 @@ class SettingsView extends GetView<SettingsController> {
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
-            onPressed: () => _localDataHelper.limpaGeral(),
-          ),
         ],
       ),
       body: Column(
