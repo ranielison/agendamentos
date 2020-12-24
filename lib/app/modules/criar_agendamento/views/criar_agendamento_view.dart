@@ -100,7 +100,8 @@ class CriarAgendamentoView extends GetView<CriarAgendamentoController> {
                         onChanged: controller.setContatoField,
                         focusNode: controller.focusContato,
                         validator: (value) {
-                          if (value.isEmpty) return '* Obrigatório';
+                          if (value.length > 0 && value.length < 15)
+                            return '* Incompleto';
                           return null;
                         },
                         onFieldSubmitted: (_) {

@@ -3,6 +3,7 @@ import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsController extends GetxController {
   final _localDataHelper = Get.find<LocalDataHelper>();
@@ -27,6 +28,19 @@ class DetailsController extends GetxController {
         agendamento.idAgendamento,
       );
       Get.until((route) => Get.currentRoute == Routes.AGENDA);
+    }
+  }
+
+  void openOnWhatsapp() {
+    String telefone = agendamento.cliente.telefone;
+    if (telefone != null) {
+      String number = telefone
+          .replaceAll('(', '')
+          .replaceAll(')', '')
+          .replaceAll('-', '')
+          .replaceAll(' ', '');
+
+      launch('https://api.whatsapp.com/send?phone=55$number&text= ');
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:agendamentos/app/data/models/agendamento.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/calendar.dart';
 import 'package:agendamentos/app/modules/agenda/widgets/list_agendamentos.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
+import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
@@ -28,11 +29,13 @@ class AgendaView extends GetView<AgendaController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Agendamentos de hoje',
-                  style: TextStyle(
-                    color: Get.theme.primaryColor,
-                    fontSize: 16,
+                Obx(
+                  () => Text(
+                    'Agendamentos de ${Constants.dformat.format(controller.selectedDay)}',
+                    style: TextStyle(
+                      color: Get.theme.primaryColor,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 IconButton(

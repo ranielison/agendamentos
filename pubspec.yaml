@@ -24,6 +24,7 @@ dependencies:
   fluttertoast: ^7.1.5
   uuid: ^2.2.2
   shared_preferences: ^0.5.12+4
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +37,9 @@ flutter:
   assets:
     - assets/
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Nunito-Regular.ttf

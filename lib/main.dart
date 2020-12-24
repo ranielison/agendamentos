@@ -16,7 +16,8 @@ import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
 //TODO: Criar funcionalidade de exportar/importar json com os dados salvos
-//TODO: Criar tela de detalhes do agendamento
+//TODO: Opção de finalizar agendamento
+//TODO: Deixar dias do passado em cinza
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,9 +47,7 @@ void main() async {
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         initialBinding: ApplicationBinding(),
-        theme: ThemeData(
-          primaryColor: Constants.primary,
-        ),
+        theme: ThemeData(primaryColor: Constants.primary, fontFamily: 'Nunito'),
       ),
     ),
   );

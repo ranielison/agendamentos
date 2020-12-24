@@ -119,7 +119,7 @@ class CriarAgendamentoController extends GetxController {
       idAgendamento: _uuid.v1(),
       cliente: Cliente(
         nome: _clientField,
-        telefone: _contatoField,
+        telefone: _contatoField.isNotEmpty ? _contatoField : null,
       ),
       isRetorno: _isRetorno.value,
       durationInMinutes: _servicosSelecionados.fold(

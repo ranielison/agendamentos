@@ -26,7 +26,7 @@ class ListAgendamentos extends StatelessWidget {
             )
           : Center(
               child: Text(
-                'Sem agendamentos hoje',
+                'Sem agendamentos',
                 style: TextStyle(
                   color: Colors.grey,
                 ),
