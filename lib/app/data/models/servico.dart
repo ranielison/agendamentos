@@ -23,4 +23,20 @@ class Servico {
     this.value,
     this.durationInMinutes,
   });
+
+  Servico.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    description = json['description'];
+    value = json['value'];
+    durationInMinutes = json['duration_in_minutes'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['description'] = this.description;
+    data['value'] = this.value;
+    data['duration_in_minutes'] = this.durationInMinutes;
+    return data;
+  }
 }

@@ -16,4 +16,24 @@ class ExpedienteSettings {
     this.intervaloInMinutes,
     this.expedientes,
   });
+
+  ExpedienteSettings.fromJson(Map<String, dynamic> json) {
+    intervaloInMinutes = json['intervalo_in_minutes'];
+    expedientes = json['expedientes'] != null
+        ? List<ExpedienteDay>.from(
+            json['expedientes']
+                .map((item) => ExpedienteDay.fromJson(item))
+                .toList(),
+          )
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['intervalo_in_minutes'] = this.intervaloInMinutes;
+    if (expedientes != null) {
+      data['expedientes'] = expedientes.map((item) => item.toJson()).toList();
+    }
+    return data;
+  }
 }

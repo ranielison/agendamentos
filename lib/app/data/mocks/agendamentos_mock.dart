@@ -14,7 +14,6 @@ List<Agendamento> agendamentosMock = [
     concluido: false,
     durationInMinutes: 240,
     startDate: DateTime(2020, 11, 28, 8, 0),
-    isRetorno: false,
     servicos: [
       Servico(
         description: 'Limpeza de pele',
@@ -35,7 +34,6 @@ List<Agendamento> agendamentosMock = [
     concluido: false,
     durationInMinutes: 120,
     startDate: DateTime(2020, 11, 21, 8),
-    isRetorno: false,
     servicos: [
       Servico(
         description: 'Pigmentação',

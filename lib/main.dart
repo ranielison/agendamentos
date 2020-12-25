@@ -15,7 +15,8 @@ import 'app/data/models/servico.dart';
 import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
-//TODO: Criar funcionalidade de exportar/importar json com os dados salvos
+//TODO: Melhorar sistema de criação e restauração de backup
+//TODO: Salvar backups na nuvem
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -22,15 +22,14 @@ class AgendamentoAdapter extends TypeAdapter<Agendamento> {
       durationInMinutes: fields[2] as int,
       startDate: fields[3] as DateTime,
       servicos: (fields[4] as List)?.cast<Servico>(),
-      isRetorno: fields[5] as bool,
-      concluido: fields[6] as bool,
+      concluido: fields[5] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Agendamento obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.idAgendamento)
       ..writeByte(1)
@@ -42,8 +41,6 @@ class AgendamentoAdapter extends TypeAdapter<Agendamento> {
       ..writeByte(4)
       ..write(obj.servicos)
       ..writeByte(5)
-      ..write(obj.isRetorno)
-      ..writeByte(6)
       ..write(obj.concluido);
   }
 

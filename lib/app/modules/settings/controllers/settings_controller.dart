@@ -2,6 +2,7 @@ import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -191,5 +192,16 @@ class SettingsController extends GetxController {
 
   void limparDados() {
     _localDataHelper.limpaGeral();
+  }
+
+  void createbackup() {
+    _localDataHelper.buildJsonDataBackup();
+    Fluttertoast.showToast(msg: 'Backup Criado');
+  }
+
+  void restoreJsonDataBackup() {
+    _localDataHelper.restoreJsonDataBackup();
+    Fluttertoast.showToast(msg: 'Backup Restaurado');
+    Get.until((route) => Get.currentRoute == Routes.HOME);
   }
 }

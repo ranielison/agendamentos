@@ -17,4 +17,6 @@ class Constants {
   static const hiveExpedienteSettingsAdapter = 3;
   static const hiveHoraioAdapter = 4;
   static const hiveServicoAdapter = 5;
+
+  static const String fileBackupName = 'agendamentos_backup.json';
 }

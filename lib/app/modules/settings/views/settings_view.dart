@@ -1,5 +1,4 @@
 import 'package:agendamentos/app/global/controllers/global_controller.dart';
-import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/modules/settings/widgets/horario_comercial.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/settings/controllers/settings_controller.dart';
 
 class SettingsView extends GetView<SettingsController> {
-  final _localDataHelper = Get.find<LocalDataHelper>();
   final _globalController = Get.find<GlobalController>();
 
   @override
@@ -111,6 +109,58 @@ class SettingsView extends GetView<SettingsController> {
                     value: _globalController.showEventAmount,
                     activeColor: Get.theme.primaryColor,
                     onChanged: _globalController.setShowEventAmount,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Divider(),
+          InkWell(
+            onTap: controller.createbackup,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 25,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'Criar backup',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.backup,
+                    color: Get.theme.primaryColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Divider(),
+          InkWell(
+            onTap: controller.restoreJsonDataBackup,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 25,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'Restaurar backup',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.restore,
+                    color: Get.theme.primaryColor,
                   ),
                 ],
               ),

@@ -23,9 +23,6 @@ class Agendamento {
   List<Servico> servicos;
 
   @HiveField(5)
-  bool isRetorno;
-
-  @HiveField(6)
   bool concluido;
 
   Agendamento({
@@ -34,7 +31,36 @@ class Agendamento {
     this.durationInMinutes,
     this.startDate,
     this.servicos,
-    this.isRetorno = false,
     this.concluido = false,
   });
+
+  Agendamento.fromJson(Map<String, dynamic> json) {
+    idAgendamento = json['id_agendamento'];
+    cliente =
+        json['cliente'] != null ? Cliente.fromJson(json['cliente']) : null;
+    durationInMinutes = json['duration_in_minutes'];
+    startDate = DateTime.parse(json['start_date']);
+    servicos = json['servicos'] != null
+        ? List<Servico>.from(
+            json['servicos'].map((item) => Servico.fromJson(item)).toList(),
+          )
+        : null;
+    concluido = json['concluido'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id_agendamento'] = this.idAgendamento;
+    if (cliente != null) {
+      data['cliente'] = this.cliente.toJson();
+    }
+    data['duration_in_minutes'] = this.durationInMinutes;
+    data['start_date'] = this.startDate.toString();
+    if (servicos != null) {
+      data['servicos'] = this.servicos.map((s) => s.toJson()).toList();
+    }
+    data['concluido'] = this.concluido;
+
+    return data;
+  }
 }

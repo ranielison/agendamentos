@@ -121,7 +121,6 @@ class CriarAgendamentoController extends GetxController {
         nome: _clientField,
         telefone: _contatoField.isNotEmpty ? _contatoField : null,
       ),
-      isRetorno: _isRetorno.value,
       durationInMinutes: _servicosSelecionados.fold(
         0,
         (previousValue, element) => previousValue + element.durationInMinutes,
