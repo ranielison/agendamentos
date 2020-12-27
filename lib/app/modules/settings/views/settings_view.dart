@@ -115,54 +115,73 @@ class SettingsView extends GetView<SettingsController> {
             ),
           ),
           Divider(),
-          InkWell(
+          GestureDetector(
             onTap: controller.createbackup,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 25,
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: 30,
               ),
-              child: Row(
-                children: [
-                  Text(
-                    'Criar backup',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 25,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'Exportar dados',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.backup,
-                    color: Get.theme.primaryColor,
-                  ),
-                ],
+                    Spacer(),
+                    Obx(
+                      () => Visibility(
+                        visible: !controller.loadingExport,
+                        child: Icon(
+                          Icons.backup,
+                          color: Get.theme.primaryColor,
+                        ),
+                        replacement: Icon(
+                          Icons.hourglass_empty,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Divider(),
-          InkWell(
+          GestureDetector(
             onTap: controller.restoreJsonDataBackup,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 25,
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: 30,
               ),
-              child: Row(
-                children: [
-                  Text(
-                    'Restaurar backup',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 25,
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'Importar dados',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.restore,
-                    color: Get.theme.primaryColor,
-                  ),
-                ],
+                    Spacer(),
+                    Icon(
+                      Icons.cloud_download,
+                      color: Get.theme.primaryColor,
+                    ),
+                  ],
+                ),
               ),
             ),
           )

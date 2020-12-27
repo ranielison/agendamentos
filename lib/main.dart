@@ -16,7 +16,6 @@ import 'app/global/bindings/applicationBinding.dart';
 import 'app/routes/app_pages.dart';
 
 //TODO: Melhorar sistema de criação e restauração de backup
-//TODO: Salvar backups na nuvem
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

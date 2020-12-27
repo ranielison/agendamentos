@@ -1,9 +1,10 @@
-import 'package:agendamentos/app/data/models/item_share_option_model.dart';
 import 'package:agendamentos/app/global/widgets/item_share_option.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:share_options/share_options.dart';
 
 class ModalShareOptions extends StatelessWidget {
-  final List<ItemShareOptionModel> listaOptions;
+  final List<ShareOption> listaOptions;
 
   const ModalShareOptions({Key key, this.listaOptions}) : super(key: key);
 
@@ -13,13 +14,34 @@ class ModalShareOptions extends StatelessWidget {
       height: 200,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
-      child: ListView.builder(
-        itemCount: listaOptions.length,
-        itemBuilder: (_, index) {
-          final item = listaOptions[index];
-
-          return ItemShareOption(item: item);
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 3,
+            width: 30,
+            color: Colors.grey,
+            margin: const EdgeInsets.symmetric(vertical: 15),
+          ),
+          Text(
+            'Compartilhar com...',
+            style: TextStyle(
+              color: Get.theme.primaryColor,
+              fontSize: 18,
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              children: listaOptions
+                  .map(
+                    (op) => ItemShareOption(item: op),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }

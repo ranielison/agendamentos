@@ -1,10 +1,8 @@
 import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
-import 'package:agendamentos/app/data/models/item_share_option_model.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/global/widgets/modal_share_options.dart';
-import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -19,12 +17,23 @@ const List<String> weekDays = [
   'DOM',
 ];
 
+const List<String> shareOptionsList = [
+  'com.google.android.gm',
+  'com.google.android.apps.docs',
+];
+
 class SettingsController extends GetxController {
   final _localDataHelper = Get.find<LocalDataHelper>();
 
   RxBool _needSave = false.obs;
   bool get needSave => _needSave.value;
   setNeedSave(bool value) => _needSave.value = value;
+
+  RxBool _loadingExport = false.obs;
+  bool get loadingExport => _loadingExport.value;
+
+  RxBool _loadingImport = false.obs;
+  bool get loadingImport => _loadingImport.value;
 
   RxInt intervalSelected = 15.obs;
 
@@ -197,19 +206,19 @@ class SettingsController extends GetxController {
   }
 
   void createbackup() async {
+    _loadingExport.value = true;
     final shareOptions = await _localDataHelper.buildJsonDataBackup();
+    _loadingExport.value = false;
+
     Get.bottomSheet(
       ModalShareOptions(
         listaOptions: shareOptions
-            .map(
-              (op) => ItemShareOptionModel(
-                name: op.name,
-              ),
+            .where(
+              (op) => shareOptionsList.contains(op.activityInfo.packageName),
             )
             .toList(),
       ),
     );
-    Fluttertoast.showToast(msg: 'Backup Criado');
   }
 
   void restoreJsonDataBackup() {
