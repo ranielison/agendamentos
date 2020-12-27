@@ -6,6 +6,7 @@ import 'package:agendamentos/app/data/models/backup_data.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/utils/constants.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -72,6 +73,7 @@ class LocalDataHelper {
         //2. Update initialized _json by converting _jsonString<String>->_json<Map>
         _json = jsonDecode(_jsonString);
         print('2.(_readJson) _json: $_json \n - \n');
+        shareFile();
         return _json;
       } catch (e) {
         // Print exception errors
@@ -79,6 +81,17 @@ class LocalDataHelper {
         // If encountering an error, return null
       }
     }
+  }
+
+  Future<void> shareFile() async {
+    //List<dynamic> docs = await DocumentsPicker.pickDocuments;
+    //if (docs == null || docs.isEmpty) return null;
+
+    await FlutterShare.shareFile(
+      title: 'Example share',
+      text: 'Example share text',
+      filePath: _filePath as String,
+    );
   }
 
   limpaGeral() {
