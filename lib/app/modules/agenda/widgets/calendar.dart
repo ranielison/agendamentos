@@ -62,6 +62,7 @@ class Calendar extends StatelessWidget {
             animationController: controller.animationController,
             day: date.day,
             aberto: controller.dayIsOpen(date),
+            isPast: date.compareTo(today) < 0,
             disponivel:
                 controller.disponibilidade[Constants.dformat.format(date)] ??
                     true,

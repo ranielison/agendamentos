@@ -5,6 +5,7 @@ class SelectedDay extends StatelessWidget {
   final int day;
   final bool disponivel;
   final bool aberto;
+  final bool isPast;
 
   const SelectedDay({
     Key key,
@@ -12,6 +13,7 @@ class SelectedDay extends StatelessWidget {
     this.day,
     this.disponivel,
     this.aberto,
+    this.isPast,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,6 @@ class SelectedDay extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.all(4.0),
-        //padding: const EdgeInsets.only(top: 5.0, left: 6.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
@@ -47,10 +48,12 @@ class SelectedDay extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
                 color: !aberto
-                    ? Colors.grey[800]
-                    : disponivel
-                        ? Colors.green
-                        : Colors.red,
+                    ? Colors.black
+                    : isPast
+                        ? Colors.grey
+                        : disponivel
+                            ? Colors.green
+                            : Colors.red,
               ),
             )
           ],
