@@ -8,6 +8,7 @@ import 'package:agendamentos/app/data/models/servico.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_options/share_options.dart';
 
 class LocalDataHelper {
   Box _box;
@@ -34,7 +35,7 @@ class LocalDataHelper {
     return File('$path/${Constants.fileBackupName}');
   }
 
-  void _writeJson(String key, dynamic value) async {
+  Future<List<ShareOption>> _writeJson(String key, dynamic value) async {
     // Initialize the local _filePath
     final _filePath = await _localFile;
 
@@ -52,6 +53,15 @@ class LocalDataHelper {
 
     //4. Write _jsonString to the _filePath
     _filePath.writeAsString(_jsonString);
+
+    final shareOptions = await ShareOptions.getFilesShareOptions(
+      [
+        _filePath.path,
+      ],
+      text: 'text',
+      subject: 'subject',
+    );
+    return shareOptions;
   }
 
   Future<dynamic> _readJson() async {
@@ -79,6 +89,19 @@ class LocalDataHelper {
         // If encountering an error, return null
       }
     }
+  }
+
+  Future<List<ShareOption>> getFileShareOptions() async {
+    print('PATH: ${_filePath.path}');
+    final shareOptions = await ShareOptions.getFilesShareOptions(
+      [
+        _filePath.path,
+      ],
+      text: 'text',
+      subject: 'subject',
+    );
+    return shareOptions;
+    //await shareOptions[7].share();
   }
 
   limpaGeral() {
@@ -187,7 +210,7 @@ class LocalDataHelper {
     return null;
   }
 
-  void buildJsonDataBackup() {
+  Future<List<ShareOption>> buildJsonDataBackup() async {
     var agendamentos = _box.get('agendamentos');
     var settings = _box.get('expediente_settings');
     var servicos = _box.get('meus_servicos');
@@ -199,17 +222,16 @@ class LocalDataHelper {
     );
 
     Map backupJson = backup.toJson();
-    print('BACKUP');
-    print(backupJson);
-    _writeJson('backup', backupJson);
+    final shareOptions = await _writeJson('backup', backupJson);
+    return shareOptions;
   }
 
   void restoreJsonDataBackup() async {
-    dynamic fileBackup = await _readJson();
-    BackupData backup = BackupData.fromJson(fileBackup['backup']);
+    //dynamic fileBackup = await _readJson();
 
-    _box.put('meus_servicos', backup.servicos);
-    _box.put('agendamentos', backup.agendamentos);
-    _box.put('expediente_settings', backup.expedienteSettings);
+    ///BackupData backup = BackupData.fromJson(fileBackup['backup']);
+    ///_box.put('meus_servicos', backup.servicos);
+    ///_box.put('agendamentos', backup.agendamentos);
+    ///_box.put('expediente_settings', backup.expedienteSettings);
   }
 }

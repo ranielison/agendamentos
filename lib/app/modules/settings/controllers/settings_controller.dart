@@ -1,7 +1,9 @@
 import 'package:agendamentos/app/data/mocks/agendamentos_mock.dart';
 import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
+import 'package:agendamentos/app/data/models/item_share_option_model.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
+import 'package:agendamentos/app/global/widgets/modal_share_options.dart';
 import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -194,14 +196,25 @@ class SettingsController extends GetxController {
     _localDataHelper.limpaGeral();
   }
 
-  void createbackup() {
-    _localDataHelper.buildJsonDataBackup();
+  void createbackup() async {
+    final shareOptions = await _localDataHelper.buildJsonDataBackup();
+    Get.bottomSheet(
+      ModalShareOptions(
+        listaOptions: shareOptions
+            .map(
+              (op) => ItemShareOptionModel(
+                name: op.name,
+              ),
+            )
+            .toList(),
+      ),
+    );
     Fluttertoast.showToast(msg: 'Backup Criado');
   }
 
   void restoreJsonDataBackup() {
-    _localDataHelper.restoreJsonDataBackup();
+    //_localDataHelper.restoreJsonDataBackup();
     Fluttertoast.showToast(msg: 'Backup Restaurado');
-    Get.until((route) => Get.currentRoute == Routes.HOME);
+    //Get.until((route) => Get.currentRoute == Routes.HOME);
   }
 }
