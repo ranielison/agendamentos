@@ -58,37 +58,10 @@ class LocalDataHelper {
       [
         _filePath.path,
       ],
-      text: 'text',
-      subject: 'subject',
+      text: 'Backup',
+      subject: 'backup_agendamentos.json',
     );
     return shareOptions;
-  }
-
-  Future<dynamic> _readJson() async {
-    // Initialize _filePath
-    _filePath = await _localFile;
-
-    // 0. Check whether the _file exists
-    _fileExists = await _filePath.exists();
-    print('0. File exists? $_fileExists');
-
-    // If the _file exists->read it: update initialized _json by what's in the _file
-    if (_fileExists) {
-      try {
-        //1. Read _jsonString<String> from the _file.
-        _jsonString = await _filePath.readAsString();
-        print('1.(_readJson) _jsonString: $_jsonString');
-
-        //2. Update initialized _json by converting _jsonString<String>->_json<Map>
-        _json = jsonDecode(_jsonString);
-        print('2.(_readJson) _json: $_json \n - \n');
-        return _json;
-      } catch (e) {
-        // Print exception errors
-        print('Tried reading _file error: $e');
-        // If encountering an error, return null
-      }
-    }
   }
 
   Future<List<ShareOption>> getFileShareOptions() async {
@@ -226,12 +199,24 @@ class LocalDataHelper {
     return shareOptions;
   }
 
-  void restoreJsonDataBackup() async {
-    //dynamic fileBackup = await _readJson();
+  Future<void> restoreJsonDataBackup(String path) async {
+    File file = File(path);
 
-    ///BackupData backup = BackupData.fromJson(fileBackup['backup']);
-    ///_box.put('meus_servicos', backup.servicos);
-    ///_box.put('agendamentos', backup.agendamentos);
-    ///_box.put('expediente_settings', backup.expedienteSettings);
+    _fileExists = await file.exists();
+    if (_fileExists) {
+      try {
+        _jsonString = await file.readAsString();
+        _json = jsonDecode(_jsonString);
+
+        BackupData backup = BackupData.fromJson(_json['backup']);
+        print('ok');
+        _box.put('meus_servicos', backup.servicos);
+        _box.put('agendamentos', backup.agendamentos);
+        _box.put('expediente_settings', backup.expedienteSettings);
+      } catch (e) {
+        print('Tried reading _file error: $e');
+        throw Exception('teste');
+      }
+    }
   }
 }

@@ -3,7 +3,9 @@ import 'package:agendamentos/app/data/models/expediente.dart';
 import 'package:agendamentos/app/data/models/expediente_settings.dart';
 import 'package:agendamentos/app/global/helpers/local_data_helper.dart';
 import 'package:agendamentos/app/global/widgets/modal_share_options.dart';
+import 'package:agendamentos/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -221,9 +223,28 @@ class SettingsController extends GetxController {
     );
   }
 
-  void restoreJsonDataBackup() {
-    //_localDataHelper.restoreJsonDataBackup();
-    Fluttertoast.showToast(msg: 'Backup Restaurado');
-    //Get.until((route) => Get.currentRoute == Routes.HOME);
+  void restoreJsonDataBackup() async {
+    FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
+      allowedFileExtensions: ['json'],
+      allowedMimeTypes: ['application/*'],
+      invalidFileNameSymbols: ['/'],
+    );
+
+    final path = await FlutterDocumentPicker.openDocument(params: params);
+    try {
+      await _localDataHelper.restoreJsonDataBackup(path);
+      Fluttertoast.showToast(msg: 'Dados importados');
+      Get.until((route) => Get.currentRoute == Routes.HOME);
+    } catch (e) {
+      Get.dialog(
+        AlertDialog(
+          title: Text('Erro', textAlign: TextAlign.center),
+          content: Text('Não foi possível carregar o arquivo'),
+          actions: [
+            FlatButton(onPressed: () => Get.back(), child: Text('Ok')),
+          ],
+        ),
+      );
+    }
   }
 }

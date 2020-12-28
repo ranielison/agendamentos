@@ -156,7 +156,26 @@ class SettingsView extends GetView<SettingsController> {
           ),
           Divider(),
           GestureDetector(
-            onTap: controller.restoreJsonDataBackup,
+            onTap: () => Get.dialog(
+              AlertDialog(
+                title: Text('Aviso', textAlign: TextAlign.center),
+                content: Text(
+                    'Os dados existentes serão totalmente sobrescritos pelos dados importados, deseja continuar?'),
+                actions: [
+                  FlatButton(
+                    onPressed: () => Get.back(),
+                    child: Text('Não'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Get.back();
+                      controller.restoreJsonDataBackup();
+                    },
+                    child: Text('Sim'),
+                  ),
+                ],
+              ),
+            ),
             child: Container(
               constraints: BoxConstraints(
                 minHeight: 30,
