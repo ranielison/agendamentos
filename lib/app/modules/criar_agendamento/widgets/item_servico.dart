@@ -25,18 +25,17 @@ class ItemServico extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(),
+                  Expanded(
                     child: Text(
                       servico.description,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Spacer(),
                   Icon(Icons.timelapse, color: Colors.grey, size: 20),
                   SizedBox(width: 3),
                   Text(

@@ -77,6 +77,8 @@ class CriarAgendamentoController extends GetxController {
         if (allHorarios[i].livre &&
             allHorarios[i].start.compareTo(horarioFinal) <= 0) {
           horariosVagos++;
+        } else {
+          break;
         }
       }
     }

@@ -24,20 +24,21 @@ class ItemServicoCard extends StatelessWidget {
       children: [
         Divider(),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 5,
-          ),
+          padding: const EdgeInsets.all(5),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                '- ${servico.description}',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
+              Expanded(
+                child: Text(
+                  servico.description,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Spacer(),
               Text(
                 '${_durationFormatted()}',
                 style: TextStyle(
@@ -45,7 +46,7 @@ class ItemServicoCard extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              SizedBox(width: 3),
+              SizedBox(width: 10),
               Icon(Icons.timelapse, color: Colors.grey),
             ],
           ),
