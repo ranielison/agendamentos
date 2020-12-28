@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:share_options/share_options.dart';
 
 class ItemShareOption extends StatelessWidget {
@@ -9,7 +10,10 @@ class ItemShareOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => item.share(),
+      onTap: () {
+        Get.back();
+        item.share();
+      },
       child: Card(
         elevation: 5,
         child: Container(

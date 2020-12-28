@@ -76,6 +76,28 @@ class AgendaController extends GetxController
       _events[agDay].sort((a, b) => a.startDate.compareTo(b.startDate));
     });
 
+    _checkDisponibilidade();
+
+    DateTime key = DateTime(
+      _selectedDay.value.year,
+      _selectedDay.value.month,
+      _selectedDay.value.day,
+    );
+
+    _selectedEvents.clear();
+    _selectedEvents.addAll(_events[key] ?? []);
+    calendarController = CalendarController();
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    animationController.forward();
+    refresh();
+  }
+
+  _checkDisponibilidade() {
     _events.forEach(
       (key, value) {
         bool disponivel = false;
@@ -108,27 +130,9 @@ class AgendaController extends GetxController
           disponivel = true;
         }
 
-        disponibilidade[Constants.dformat.format(data)] = disponivel;
+        _disponibilidade[Constants.dformat.format(data)] = disponivel;
       },
     );
-
-    DateTime key = DateTime(
-      _selectedDay.value.year,
-      _selectedDay.value.month,
-      _selectedDay.value.day,
-    );
-
-    _selectedEvents.clear();
-    _selectedEvents.addAll(_events[key] ?? []);
-    calendarController = CalendarController();
-
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    animationController.forward();
-    refresh();
   }
 
   bool dayIsOpen(DateTime day) {
@@ -149,6 +153,7 @@ class AgendaController extends GetxController
     );
     _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
     _selectedEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
+    _checkDisponibilidade();
     update();
   }
 
@@ -168,6 +173,7 @@ class AgendaController extends GetxController
       _events.putIfAbsent(key, () => [ag]);
       _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
     }
+    _checkDisponibilidade();
     update();
   }
 
