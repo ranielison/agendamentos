@@ -83,6 +83,7 @@ class DialogServicos extends StatelessWidget {
                   : Center(
                       child: Text(
                         'Sem agendamentos cadastrados',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.grey,
                         ),

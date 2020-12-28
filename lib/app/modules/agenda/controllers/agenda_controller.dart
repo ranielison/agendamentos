@@ -73,6 +73,7 @@ class AgendaController extends GetxController
       } else {
         _events[agDay] = [ag];
       }
+      _events[agDay].sort((a, b) => a.startDate.compareTo(b.startDate));
     });
 
     _events.forEach(
@@ -146,6 +147,8 @@ class AgendaController extends GetxController
     _events[key].removeWhere(
       (element) => element.idAgendamento == id,
     );
+    _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
+    _selectedEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
     update();
   }
 
@@ -157,10 +160,13 @@ class AgendaController extends GetxController
     );
 
     _selectedEvents.add(ag);
+    _selectedEvents.sort((a, b) => a.startDate.compareTo(b.startDate));
     if (_events[key] != null) {
       _events[key] = [..._events[key], ag];
+      _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
     } else {
       _events.putIfAbsent(key, () => [ag]);
+      _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
       update();
     }
   }
