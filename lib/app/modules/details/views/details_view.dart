@@ -45,7 +45,7 @@ class DetailsView extends GetView<DetailsController> {
                       color: Colors.green,
                     ),
                     replacement: Icon(
-                      Icons.timelapse,
+                      Icons.timer,
                       color: Colors.grey,
                     ),
                   ),
@@ -98,6 +98,40 @@ class DetailsView extends GetView<DetailsController> {
             ),
             CardServicos(
               servicos: controller.agendamento.servicos,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Duração total: ',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    Constants.hformat.format(
+                      DateTime(2020).add(
+                        Duration(
+                          minutes: controller.agendamento.durationInMinutes,
+                        ),
+                      ),
+                    ),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 3),
+                  Icon(
+                    Icons.timelapse,
+                    color: Colors.grey,
+                  )
+                ],
+              ),
             ),
             Visibility(
               visible: !controller.agendamento.concluido,
