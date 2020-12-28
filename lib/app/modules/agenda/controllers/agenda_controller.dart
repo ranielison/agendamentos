@@ -167,8 +167,8 @@ class AgendaController extends GetxController
     } else {
       _events.putIfAbsent(key, () => [ag]);
       _events[key].sort((a, b) => a.startDate.compareTo(b.startDate));
-      update();
     }
+    update();
   }
 
   void updateEventOnSelectedEvents(Agendamento ag) {

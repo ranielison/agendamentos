@@ -1,5 +1,5 @@
 import 'package:agendamentos/app/data/models/servico.dart';
-import 'package:agendamentos/app/global/widgets/dialog_confirmacao.dart';
+import 'package:agendamentos/app/global/widgets/dialog_aviso.dart';
 import 'package:agendamentos/app/modules/meus_servicos/controllers/meus_servicos_controller.dart';
 import 'package:agendamentos/app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class ItemMeuServico extends StatelessWidget {
               controller.openDialogEdit(servico);
               break;
             case 'Excluir':
-              Get.dialog(DialogConfirmacao(
+              Get.dialog(DialogAviso(
                 content: 'Deseja realmente excluir este serviço?',
                 action: () => controller.excluirServico(servico.id),
               ));

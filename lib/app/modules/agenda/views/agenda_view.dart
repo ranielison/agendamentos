@@ -8,7 +8,11 @@ import 'package:get/get.dart';
 import 'package:agendamentos/app/modules/agenda/controllers/agenda_controller.dart';
 
 class AgendaView extends GetView<AgendaController> {
-  final DateTime today = DateTime.now();
+  final DateTime today = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +42,24 @@ class AgendaView extends GetView<AgendaController> {
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.crop_free,
-                    color: Get.theme.primaryColor,
-                  ),
-                  onPressed: () => Get.toNamed(
-                    Routes.LISTA_HORARIOS,
-                    arguments: {
-                      'day': controller.selectedDay.subtract(
-                        Duration(hours: 12),
+                Obx(
+                  () => Visibility(
+                    visible: controller.selectedDay.compareTo(today) >= 0 &&
+                        controller.dayIsOpen(controller.selectedDay),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.crop_free,
+                        color: Get.theme.primaryColor,
                       ),
-                      'agendamentos': controller.selectedEvents,
-                    },
+                      onPressed: () => Get.toNamed(
+                        Routes.LISTA_HORARIOS,
+                        arguments: {
+                          'day': controller.selectedDay,
+                          'agendamentos': controller.selectedEvents,
+                        },
+                      ),
+                    ),
+                    replacement: SizedBox(height: 40),
                   ),
                 )
               ],

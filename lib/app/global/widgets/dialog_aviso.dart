@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DialogConfirmacao extends StatelessWidget {
+class DialogAviso extends StatelessWidget {
+  final String title;
   final String content;
   final Function action;
 
-  const DialogConfirmacao({
+  const DialogAviso({
     Key key,
+    this.title,
     this.content,
     this.action,
   }) : super(key: key);
@@ -14,7 +16,7 @@ class DialogConfirmacao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Confirmação', textAlign: TextAlign.center),
+      title: Text(title ?? 'Aviso', textAlign: TextAlign.center),
       content: Text(content),
       actions: [
         FlatButton(
