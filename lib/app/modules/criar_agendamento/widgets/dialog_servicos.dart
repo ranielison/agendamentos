@@ -21,63 +21,73 @@ class DialogServicos extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: NoAnimationList(
-                child: ListView.builder(
-                  itemCount: _controller.servicos.length,
-                  itemBuilder: (_, i) {
-                    Servico servico = _controller.servicos[i];
+              child: _controller.servicos.isNotEmpty
+                  ? NoAnimationList(
+                      child: ListView.builder(
+                        itemCount: _controller.servicos.length,
+                        itemBuilder: (_, i) {
+                          Servico servico = _controller.servicos[i];
 
-                    return ListTile(
-                      title: Text(
-                        servico.description,
-                        style: TextStyle(
-                          color: Get.theme.primaryColor,
-                        ),
-                      ),
-                      subtitle: Row(
-                        children: [
-                          Text('Duração: ',
-                              style: TextStyle(color: Colors.grey)),
-                          SizedBox(width: 3),
-                          Text(
-                            Constants.hformat.format(
-                              DateTime(2020).add(
-                                Duration(minutes: servico.durationInMinutes),
+                          return ListTile(
+                            title: Text(
+                              servico.description,
+                              style: TextStyle(
+                                color: Get.theme.primaryColor,
                               ),
                             ),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      trailing: Obx(
-                        () => IconButton(
-                          icon:
-                              _controller.servicosSelecionados.contains(servico)
-                                  ? Icon(
-                                      Icons.remove,
-                                      color: Colors.grey,
-                                    )
-                                  : Icon(
-                                      Icons.add,
-                                      color: Get.theme.primaryColor,
+                            subtitle: Row(
+                              children: [
+                                Text('Duração: ',
+                                    style: TextStyle(color: Colors.grey)),
+                                SizedBox(width: 3),
+                                Text(
+                                  Constants.hformat.format(
+                                    DateTime(2020).add(
+                                      Duration(
+                                          minutes: servico.durationInMinutes),
                                     ),
-                          onPressed: () {
-                            if (_controller.servicosSelecionados
-                                .contains(servico)) {
-                              _controller.removeServico(servico);
-                            } else {
-                              _controller.addServico(servico);
-                            }
-                          },
+                                  ),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            trailing: Obx(
+                              () => IconButton(
+                                icon: _controller.servicosSelecionados
+                                        .contains(servico)
+                                    ? Icon(
+                                        Icons.remove,
+                                        color: Colors.grey,
+                                      )
+                                    : Icon(
+                                        Icons.add,
+                                        color: Get.theme.primaryColor,
+                                      ),
+                                onPressed: () {
+                                  if (_controller.servicosSelecionados
+                                      .contains(servico)) {
+                                    _controller.removeServico(servico);
+                                  } else {
+                                    _controller.addServico(servico);
+                                  }
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        'Sem agendamentos cadastrados',
+                        style: TextStyle(
+                          color: Colors.grey,
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
             ),
             GeralButton(textButton: 'Ok', action: () => Get.back()),
           ],

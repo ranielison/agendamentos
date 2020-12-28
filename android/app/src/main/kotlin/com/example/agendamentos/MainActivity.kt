@@ -1,4 +1,4 @@
-package com.orion7.agendamentosmple.agendamentos
+package com.orion7.agendamentos
 
 import io.flutter.embedding.android.FlutterActivity
 
